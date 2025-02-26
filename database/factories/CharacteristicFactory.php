@@ -17,7 +17,9 @@ class CharacteristicFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->name(),
+            'smart' => fake()->random_int(0,1),
+            'type' => fake()->random_int(1,5),
         ];
     }
 }
