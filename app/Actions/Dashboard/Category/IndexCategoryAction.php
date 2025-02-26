@@ -3,11 +3,27 @@
 namespace App\Actions\Dashboard\Category;
 
 use App\Models\Category;
+use App\Models\Characteristic;
 
 class IndexCategoryAction
 {
-    public function __invoke(): array
+    public function __invoke($model): array
     {
-        return Category::with('children')->orderBy('sort')->orderBy('id')->get()->toTree()->toArray();
+
+
+        // dd($model);
+
+        return [
+            'categories' => Category::getAll(),
+            // 'selected' => $model,
+            'category' => $model,
+            'characteristics' =>
+                Characteristic::with('children')
+                    ->where('category_id', $model->id)
+                    ->get()
+                    ->makeHidden(['created_at', 'updated_at'])
+                    ->toTree()
+                    ->toArray(),
+        ];
     }
 }

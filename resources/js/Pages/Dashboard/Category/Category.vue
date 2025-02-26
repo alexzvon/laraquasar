@@ -1,6 +1,7 @@
 <script setup>
   import DashboardLayout from '@/Layouts/DashboardLayout.vue'
-  import { useForm } from '@inertiajs/vue3'
+  import Characteristic from './Characteristic.vue'
+  import { useForm, router } from '@inertiajs/vue3'
   import { ref } from 'vue'
   import { api } from '../../../axios'
 
@@ -8,28 +9,27 @@
     name: 'Category'
   })
 
-  const prop = defineProps({
+  const props = defineProps({
     categories: Array,
-    selected: Number,  
+    // selected: Number,
+    characteristics: Array,
+    category: Object,
   })
+
+  console.log(props.category)
 
   const visible = ref(false)
 
-  const urlCreate = ref('')
-  const urlAppend = ref('')
-  const urlUpdate = ref('')
-  const urlDelete = ref('')
+  const urlCreate = ref(route('dashboard.category.create', { 'category': props.category.id }))
+  const urlAppend = ref(route('dashboard.category.append', { 'category': props.category.id }))
+  const urlUpdate = ref(route('dashboard.category.update', { 'category': props.category.id }))
+  const urlDelete = ref(route('dashboard.category.destroy', { 'id': props.category.id }))
 
   const splitterModel = ref(30)
-  const selected = ref(prop.selected)
+  const selected = ref(props.category.id)
   const filterTree = ref('')
   const tree = ref()
   
-  const category = ref({
-    picture_image: '',
-    picture_icon: '',
-  })
-
   const form = useForm({
     id: 0,
     sort: 100,
@@ -40,26 +40,30 @@
     _method: 'POST',
   })
 
-  const onNodeSelected = async (nodeId) => {
-    let id = nodeId ?? 1
+  // const onNodeSelected = async (nodeId) => router.visit(route('dashboard.category.index', { id: nodeId ?? 1 }), { method: 'get'})
+  const onNodeSelected = (nodeId) => router.visit(route('dashboard.category.index', { id: nodeId ?? 1 }), { method: 'get'})
+  // {
+    // let id = nodeId ?? 1
 
-    if (id > 1) {
-      try {
-        const { data } = await api({ method: 'GET', url: '/get_category/' + id })
+    // router.visit(route('dashboard.category.index', { id: nodeId ?? 1 }), { method: 'get'})
 
-        urlCreate.value = route('dashboard.category.create', { 'category': data.id })
-        urlAppend.value = route('dashboard.category.append', { 'category': data.id })
-        urlUpdate.value = route('dashboard.category.update', { 'category': data.id })
-        urlDelete.value = route('dashboard.category.destroy', { 'id': data.id })
+    // if (id > 1) {
+    //   try {
+    //     const { data } = await api({ method: 'GET', url: '/get_category/' + id })
 
-        category.value = data
-        onReset()
+    //     urlCreate.value = route('dashboard.category.create', { 'category': data.id })
+    //     urlAppend.value = route('dashboard.category.append', { 'category': data.id })
+    //     urlUpdate.value = route('dashboard.category.update', { 'category': data.id })
+    //     urlDelete.value = route('dashboard.category.destroy', { 'id': data.id })
 
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
+    //     category.value = data
+    //     onReset()
+
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+  // }
 
   const onReplay = () => {
     form.id = 0
@@ -141,16 +145,19 @@
     visible.value = false
   }
 
-  const idImage = 'idImage_' + category.id
-  const idIcon = 'idIcon_' + category.id
+  const idImage = 'idImage_' + props.category.id
+  const idIcon = 'idIcon_' + props.category.id
 
-  const urlImage = () =>  form.picture_image != null ? URL.createObjectURL(form.picture_image) : category.value.picture_image
-  const urlIcon = () =>  form.picture_icon != undefined ? URL.createObjectURL(form.picture_icon) : category.value.picture_icon
+  const urlImage = () =>  form.picture_image != null ? URL.createObjectURL(form.picture_image) : props.category.picture_image
+  const urlIcon = () =>  form.picture_icon != undefined ? URL.createObjectURL(form.picture_icon) : props.category.picture_icon
 
   const clickImage = () => document.querySelector('#' + idImage).click()
   const clickIcon = () => document.querySelector('#' + idIcon).click()
 
-  onNodeSelected(selected.value)
+  // onNodeSelected(selected.value)
+
+  // console.log(props.characteristics)
+
 </script>
 
 <template>
@@ -160,6 +167,7 @@
       label="Фильтр" 
       label-color="gries"
       color="gries"
+      style="height: 40px;"
       dense
     >
       <template v-slot:append>
@@ -189,7 +197,7 @@
       <template v-slot:after>
 <!--        <q-form @submit.stop.prevent="onSubmit" t="onReset"> -->
           <q-card flat class="slide-card">
-            <q-card-section>
+            <q-card-section style="height: 292px;">
                 <q-list class="img-width">
                   <q-item class="no-padding">
                     <q-item-section class="justify-around">
@@ -339,6 +347,12 @@
                     </q-item-section>
                   </q-item>
               </q-list>
+            </q-card-section>
+            <!-- <q-separator dark inset /> -->
+            <q-separator />
+            <q-card-section class="q-pt-none">
+              <characteristic :characteristics="characteristics" />
+              <!-- {{ simple }} -->
             </q-card-section>
           </q-card>
 <!--        </q-form> -->

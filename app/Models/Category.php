@@ -17,7 +17,8 @@ class Category extends Model    // implements HasMedia
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory, NodeTrait;     // , InteractsWithMedia;
 
-    const CACHE_ALL = 'allTreeCategory';
+    const CACHE_ALL = 'allCategory';
+    // const CACHE_TREE = 'treeCategory';
 
     /**
      * @var string

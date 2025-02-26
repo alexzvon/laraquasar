@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Actions\Dashboard\Category\AppendCategoryAction;
 use App\Actions\Dashboard\Category\CreateCategoryAction;
 use App\Actions\Dashboard\Category\DestroyCategoryAction;
 use App\Actions\Dashboard\Category\IndexCategoryAction;
-use App\Actions\Dashboard\Category\AppendCategoryAction;
 use App\Actions\Dashboard\Category\UpdateCategoryAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Category\CreateRequest;
 use App\Http\Requests\Dashboard\Category\UpdateRequest;
-use App\Http\Resources\Dashboard\Category\CategoryCollection;
+// use App\Http\Resources\Dashboard\Category\CategoryCollection;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -18,9 +18,9 @@ use Inertia\Response;
 
 class CategoryController extends Controller
 {
-    public function index(IndexCategoryAction $action, int $id): Response
+    public function index(Category $category, IndexCategoryAction $action): Response
     {
-        return Inertia::render('Dashboard/Category/Category', ['categories' => $action(), 'selected' => $id]);
+        return Inertia::render('Dashboard/Category/Category', $action($category));
     }
 
     public function append(Category $category, CreateRequest $request, AppendCategoryAction $action): RedirectResponse
