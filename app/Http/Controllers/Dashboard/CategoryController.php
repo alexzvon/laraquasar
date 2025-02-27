@@ -12,6 +12,7 @@ use App\Http\Requests\Dashboard\Category\CreateRequest;
 use App\Http\Requests\Dashboard\Category\UpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -41,4 +42,14 @@ class CategoryController extends Controller
     {
         return redirect()->intended(route('dashboard.category.index', $action($id)));
     }
+
+    public function proba(Category $category, Request $request) //: RedirectResponse
+    {
+        // dd($category);
+
+        sleep(5);
+
+        return redirect()->intended(route('dashboard.category.index', [ 'category' => $category->id]));
+    }
+
 }

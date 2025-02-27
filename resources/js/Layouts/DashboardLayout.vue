@@ -333,7 +333,7 @@
 
         <q-page-container>
           <slot />
-          <q-inner-loading :showing="visible">
+          <q-inner-loading :showing="router.processing">
             <q-spinner-gears size="50px" color="gries" />
           </q-inner-loading>
         </q-page-container>
