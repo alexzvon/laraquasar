@@ -17,11 +17,17 @@
     const location = page.props.ziggy.location
 
     const onActiveUsers = () => {
-        let id = usePage().props.user == undefined ? 0 : usePage().props.user.id
+      let id = usePage().props.user == undefined ? 0 : usePage().props.user.id
 
-        return route('dashboard.users.index') == location ||
-            route('dashboard.users.create') == location ||
-            route('dashboard.users.edit', { 'user': id }) == location
+      return route('dashboard.users.index') == location ||
+        route('dashboard.users.create') == location ||
+        route('dashboard.users.edit', { 'user': id }) == location
+    }
+
+    const onActiveCategory = () => {
+      let id = usePage().props.category == undefined ? 0: usePage().props.category.id
+
+      return route('dashboard.category.index', { category: id }) == location
     }
 
     const visible = ref(false)
@@ -139,8 +145,8 @@
               dense
               clickable
               v-ripple
-              @click="loadItem('dashboard.category.index', { id: 1 }, 'get')"
-              :active="route('dashboard.category.index', { id: 1 }) == location"
+              @click="loadItem('dashboard.category.index', { category: 1 }, 'get')"
+              :active="onActiveCategory()"
               active-class="text-gries bg-mutan"
             >
               <q-item-section avatar>

@@ -2,13 +2,12 @@
 
 namespace App\Actions\Dashboard\Category;
 
-// use App\Models\Catalog;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
 class DestroyCategoryAction
 {
-    public function __invoke($id): void
+    public function __invoke($id): array
     {
         if (is_dir(config('filesystems.disks.public.root').'/images/category/'.$id)) {
             Storage::disk('public')->deleteDirectory('images/category/'.$id);
@@ -20,5 +19,7 @@ class DestroyCategoryAction
 
         Category::destroy($id);
         Category::clearCache();
+
+        return [ 'category' => 1 ];
     }
 }

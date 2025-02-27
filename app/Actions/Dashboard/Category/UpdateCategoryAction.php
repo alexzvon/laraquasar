@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class UpdateCategoryAction
 {
-    public function __invoke($model, $data): int
+    public function __invoke($model, $data): array
     {
         $pathRoot = config('filesystems.disks.public.url');
 
@@ -51,6 +51,6 @@ class UpdateCategoryAction
 
         Category::clearCache();
 
-        return $model->id;
+        return [ 'category' => $model->id ];
     }
 }

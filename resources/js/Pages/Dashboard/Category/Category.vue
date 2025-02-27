@@ -3,7 +3,7 @@
   import Characteristic from './Characteristic.vue'
   import { useForm, router } from '@inertiajs/vue3'
   import { ref } from 'vue'
-  import { api } from '../../../axios'
+  // import { api } from '../../../axios'
 
   defineOptions({
     name: 'Category'
@@ -11,12 +11,9 @@
 
   const props = defineProps({
     categories: Array,
-    // selected: Number,
     characteristics: Array,
     category: Object,
   })
-
-  console.log(props.category)
 
   const visible = ref(false)
 
@@ -40,30 +37,7 @@
     _method: 'POST',
   })
 
-  // const onNodeSelected = async (nodeId) => router.visit(route('dashboard.category.index', { id: nodeId ?? 1 }), { method: 'get'})
   const onNodeSelected = (nodeId) => router.visit(route('dashboard.category.index', { id: nodeId ?? 1 }), { method: 'get'})
-  // {
-    // let id = nodeId ?? 1
-
-    // router.visit(route('dashboard.category.index', { id: nodeId ?? 1 }), { method: 'get'})
-
-    // if (id > 1) {
-    //   try {
-    //     const { data } = await api({ method: 'GET', url: '/get_category/' + id })
-
-    //     urlCreate.value = route('dashboard.category.create', { 'category': data.id })
-    //     urlAppend.value = route('dashboard.category.append', { 'category': data.id })
-    //     urlUpdate.value = route('dashboard.category.update', { 'category': data.id })
-    //     urlDelete.value = route('dashboard.category.destroy', { 'id': data.id })
-
-    //     category.value = data
-    //     onReset()
-
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-  // }
 
   const onReplay = () => {
     form.id = 0
@@ -125,10 +99,10 @@
   }
 
   const onReset = () => {
-    form.id = category.value.id
-    form.title = category.value.title
-    form.slug = category.value.slug
-    form.sort = category.value.sort
+    form.id = props.category.id
+    form.title = props.category.title
+    form.slug = props.category.slug
+    form.sort = props.category.sort
     form.picture_image = null
     form.picture_icon = null
     form._method = 'POST'
@@ -154,10 +128,7 @@
   const clickImage = () => document.querySelector('#' + idImage).click()
   const clickIcon = () => document.querySelector('#' + idIcon).click()
 
-  // onNodeSelected(selected.value)
-
-  // console.log(props.characteristics)
-
+  onReset()
 </script>
 
 <template>
@@ -195,7 +166,6 @@
         />
       </template>
       <template v-slot:after>
-<!--        <q-form @submit.stop.prevent="onSubmit" t="onReset"> -->
           <q-card flat class="slide-card">
             <q-card-section style="height: 292px;">
                 <q-list class="img-width">
@@ -355,14 +325,8 @@
               <!-- {{ simple }} -->
             </q-card-section>
           </q-card>
-<!--        </q-form> -->
       </template>
     </q-splitter>
-
-
-
-
-    
     <q-inner-loading :showing="visible">
       <q-spinner-gears size="50px" color="gries" />
     </q-inner-loading>
