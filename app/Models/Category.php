@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Kalnoy\Nestedset\NodeTrait;
@@ -16,7 +17,8 @@ class Category extends Model    // implements HasMedia
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory, NodeTrait;     // , InteractsWithMedia;
 
-    const CACHE_ALL = 'allTreeCategory';
+    const CACHE_ALL = 'allCategory';
+    // const CACHE_TREE = 'treeCategory';
 
     /**
      * @var string
@@ -57,6 +59,11 @@ class Category extends Model    // implements HasMedia
         static::creating(function (Category $category) {
             $category->slug = $category->slug ?? Str::slug($category->title);
         });
+    }
+
+    public function characteristics(): HasMany
+    {
+        return $this->hasMany(Characteristic::class);
     }
 
     public static function getAll(): array

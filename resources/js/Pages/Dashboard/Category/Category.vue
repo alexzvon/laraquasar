@@ -1,35 +1,32 @@
 <script setup>
   import DashboardLayout from '@/Layouts/DashboardLayout.vue'
-  import { useForm } from '@inertiajs/vue3'
+  import Characteristic from './Characteristic.vue'
+  import { useForm, router } from '@inertiajs/vue3'
   import { ref } from 'vue'
-  import { api } from '../../../axios'
+  // import { api } from '../../../axios'
 
   defineOptions({
     name: 'Category'
   })
 
-  const prop = defineProps({
+  const props = defineProps({
     categories: Array,
-    selected: Number,  
+    characteristics: Array,
+    category: Object,
   })
 
   const visible = ref(false)
 
-  const urlCreate = ref('')
-  const urlAppend = ref('')
-  const urlUpdate = ref('')
-  const urlDelete = ref('')
+  const urlCreate = ref(route('dashboard.category.create', { 'category': props.category.id }))
+  const urlAppend = ref(route('dashboard.category.append', { 'category': props.category.id }))
+  const urlUpdate = ref(route('dashboard.category.update', { 'category': props.category.id }))
+  const urlDelete = ref(route('dashboard.category.destroy', { 'id': props.category.id }))
 
   const splitterModel = ref(30)
-  const selected = ref(prop.selected)
+  const selected = ref(props.category.id)
   const filterTree = ref('')
   const tree = ref()
   
-  const category = ref({
-    picture_image: '',
-    picture_icon: '',
-  })
-
   const form = useForm({
     id: 0,
     sort: 100,
@@ -40,26 +37,7 @@
     _method: 'POST',
   })
 
-  const onNodeSelected = async (nodeId) => {
-    let id = nodeId ?? 1
-
-    if (id > 1) {
-      try {
-        const { data } = await api({ method: 'GET', url: '/get_category/' + id })
-
-        urlCreate.value = route('dashboard.category.create', { 'category': data.id })
-        urlAppend.value = route('dashboard.category.append', { 'category': data.id })
-        urlUpdate.value = route('dashboard.category.update', { 'category': data.id })
-        urlDelete.value = route('dashboard.category.destroy', { 'id': data.id })
-
-        category.value = data
-        onReset()
-
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
+  const onNodeSelected = (nodeId) => router.visit(route('dashboard.category.index', { id: nodeId ?? 1 }), { method: 'get'})
 
   const onReplay = () => {
     form.id = 0
@@ -121,10 +99,10 @@
   }
 
   const onReset = () => {
-    form.id = category.value.id
-    form.title = category.value.title
-    form.slug = category.value.slug
-    form.sort = category.value.sort
+    form.id = props.category.id
+    form.title = props.category.title
+    form.slug = props.category.slug
+    form.sort = props.category.sort
     form.picture_image = null
     form.picture_icon = null
     form._method = 'POST'
@@ -141,16 +119,16 @@
     visible.value = false
   }
 
-  const idImage = 'idImage_' + category.id
-  const idIcon = 'idIcon_' + category.id
+  const idImage = 'idImage_' + props.category.id
+  const idIcon = 'idIcon_' + props.category.id
 
-  const urlImage = () =>  form.picture_image != null ? URL.createObjectURL(form.picture_image) : category.value.picture_image
-  const urlIcon = () =>  form.picture_icon != undefined ? URL.createObjectURL(form.picture_icon) : category.value.picture_icon
+  const urlImage = () =>  form.picture_image != null ? URL.createObjectURL(form.picture_image) : props.category.picture_image
+  const urlIcon = () =>  form.picture_icon != undefined ? URL.createObjectURL(form.picture_icon) : props.category.picture_icon
 
   const clickImage = () => document.querySelector('#' + idImage).click()
   const clickIcon = () => document.querySelector('#' + idIcon).click()
 
-  onNodeSelected(selected.value)
+  onReset()
 </script>
 
 <template>
@@ -160,6 +138,7 @@
       label="Фильтр" 
       label-color="gries"
       color="gries"
+      style="height: 40px;"
       dense
     >
       <template v-slot:append>
@@ -187,9 +166,8 @@
         />
       </template>
       <template v-slot:after>
-<!--        <q-form @submit.stop.prevent="onSubmit" t="onReset"> -->
           <q-card flat class="slide-card">
-            <q-card-section>
+            <q-card-section style="height: 292px;">
                 <q-list class="img-width">
                   <q-item class="no-padding">
                     <q-item-section class="justify-around">
@@ -340,15 +318,15 @@
                   </q-item>
               </q-list>
             </q-card-section>
+            <!-- <q-separator dark inset /> -->
+            <q-separator />
+            <q-card-section class="q-pt-none">
+              <characteristic :characteristics="characteristics" />
+              <!-- {{ simple }} -->
+            </q-card-section>
           </q-card>
-<!--        </q-form> -->
       </template>
     </q-splitter>
-
-
-
-
-    
     <q-inner-loading :showing="visible">
       <q-spinner-gears size="50px" color="gries" />
     </q-inner-loading>

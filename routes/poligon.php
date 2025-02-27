@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 // use App\Models\User;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
@@ -92,7 +94,7 @@ Route::middleware('auth')->group(function () {
         // Route::resource('chapter', ChapterController::class)->except(['index', 'edit', 'create']);
         // Route::resource('category', CategoryController::class)->except(['edit']);
 
-        Route::get('category/{id}', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('category/{category}', [CategoryController::class, 'index'])->name('category.index');
         Route::put('category/{category}', [CategoryController::class, 'update'])->name('category.update');
         Route::post('category/append/{category}', [CategoryController::class, 'append'])->name('category.append');
         Route::post('category/create/{category}', [CategoryController::class, 'create'])->name('category.create');
