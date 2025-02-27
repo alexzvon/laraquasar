@@ -2,11 +2,11 @@
   import DashboardLayout from '@/Layouts/DashboardLayout.vue'
   import Characteristic from './Characteristic.vue'
   import { useForm, router } from '@inertiajs/vue3'
-  import { ref } from 'vue'
-  import { useQuasar } from 'quasar'
+  import { ref, toRaw } from 'vue'
+  // import { useQuasar } from 'quasar'
   // import * as $q from "quasar";
 
-  const $q = useQuasar()
+  // const $q = useQuasar()
   // import { api } from '../../../axios'
 
   defineOptions({
@@ -21,17 +21,12 @@
 
   const urlProba = ref(route('dashboard.category.proba', { 'category': props.category.id }))
 
-  // const urlCreate = ref(route('dashboard.category.create', { 'category': props.category.id }))
-  // const urlAppend = ref(route('dashboard.category.append', { 'category': props.category.id }))
-  // const urlUpdate = ref(route('dashboard.category.update', { 'category': props.category.id }))
-  // const urlDelete = ref(route('dashboard.category.destroy', { 'id': props.category.id }))
-
   const splitterModel = ref(30)
   const selected = ref(props.category.id)
   const filterTree = ref('')
   const tree = ref()
-  // const destroy = ref(false)
-  
+  const characteristics = ref(toRaw(props.characteristics))
+
   const form = useForm({
     id: 0,
     sort: 100,
@@ -65,8 +60,8 @@
     form.picture_icon = null
     props.category.picture_image = ''
     props.category.picture_icon = ''
-    props.characteristics.value = []
     form._method = 'POST'
+    characteristics.value = []
   }
 
   const onAppend = () => {
@@ -74,7 +69,11 @@
       form._method = 'POST'
       form.post(route('dashboard.category.append', { 'category': props.category.id }), 
         {
-          onSuccess: () => onReset()
+          onSuccess: () => {
+            onReset()
+            selected.value = props.category.id
+            tree.value.setExpanded(selected.value, true)
+          }
         }
       )
     }
@@ -88,7 +87,7 @@
           onSuccess: () => {
             onReset()
             selected.value = props.category.id
-            tree.value.setExpanded(selected.value, true)
+            tree.value.expandAll(selected.value)
           }
         }
       )
@@ -110,42 +109,7 @@
     form.picture_image = null
     form.picture_icon = null
     form._method = 'POST'
-  }
-
-  const confirmDestroy = () => {
-
-    console.log(confirm('Внимание!!! после удаления данные не подлежат востановлении, продолжить удаление...'))
-
-    // $q.dialog({
-    //     title: 'Confirm',
-    //     message: 'Would you like to turn on the wifi?',
-    //     cancel: true,
-    //     persistent: true
-    //   }).onOk(() => {
-    //     // console.log('>>>> OK')
-    //   }).onOk(() => {
-    //     // console.log('>>>> second OK catcher')
-    //   }).onCancel(() => {
-    //     // console.log('>>>> Cancel')
-    //   }).onDismiss(() => {
-    //     // console.log('I am triggered on both OK and Cancel')
-    //   })
-
-    // $q.dialog({
-    //   title: 'Confirm',
-    //   message: 'Внимание!!! после удаления данные не подлежат востановлении, продолжить удаление...',
-    //   cancel: true,
-    //   persistent: true,
-    //   seamless: true,
-    // }).onOk(() => {
-    //   destroy.value = true    
-    // }).onCancel(() => {
-    //   destroy.value = false
-    // }).onDismiss(() => {
-    //   destroy.value = false
-    // })
-
-    // return destroy.value
+    characteristics.value = toRaw(props.characteristics)
   }
 
   const onDestroy = () => {
@@ -169,17 +133,16 @@
 
   onReset()
 
-  // selected.value = props.category.id
-
-
   const onProba = () => {
     console.log('start proba')
 
 
-  selected.value = props.category.id
-  tree.value.setExpanded(selected.value, true)
+  selected.value = 1122
+  // tree.value.setExpanded(selected.value, true)
+  // tree.value.setSelectedNode(selected.value)
 
-  console.log(props.category.id)
+  console.log(router)
+  console.log(form)
 
 
         //router.post(urlProba.value, form, { only: [ 'category' ]})
