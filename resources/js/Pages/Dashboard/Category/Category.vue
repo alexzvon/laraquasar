@@ -65,6 +65,7 @@
     form.picture_icon = null
     props.category.picture_image = ''
     props.category.picture_icon = ''
+    props.characteristics.value = []
     form._method = 'POST'
   }
 
@@ -86,10 +87,8 @@
         {
           onSuccess: () => {
             onReset()
-            tree.expandAll()
             selected.value = props.category.id
-
-            console.log(props.category.id)
+            tree.value.setExpanded(selected.value, true)
           }
         }
       )
@@ -176,6 +175,13 @@
   const onProba = () => {
     console.log('start proba')
 
+
+  selected.value = props.category.id
+  tree.value.setExpanded(selected.value, true)
+
+  console.log(props.category.id)
+
+
         //router.post(urlProba.value, form, { only: [ 'category' ]})
 
     // form.post(urlProba.value, { only: [ ' errors' ]})
@@ -227,7 +233,7 @@
         />
       </template>
       <template v-slot:after>
-          <q-card flat class="slide-card">
+          <q-card flat class="slide-card full-height">
             <q-card-section style="height: 292px;">
                 <q-list class="img-width">
                   <q-item class="no-padding">
@@ -369,24 +375,24 @@
                       <q-btn label="Отменить" @click.stop.prevent="onReset" color="gries" flat no-caps class="q-ml-sm">
                         <q-tooltip>Отменить все изменения категории</q-tooltip>
                       </q-btn>
-                      <q-btn label="Очистить" @click.stop.prevent="onReplay" color="gries" flat no-caps class="q-ml-sm">
-                        <q-tooltip>Очистить категорию</q-tooltip>
+                      <q-btn label="Новая" @click.stop.prevent="onReplay" color="gries" flat no-caps class="q-ml-sm">
+                        <q-tooltip>Новая категория или каталов</q-tooltip>
                       </q-btn>
                       <q-btn label="Удалить" color="dbrem" class="q-ml-sm" @click.stop.prevent="onDestroy" flat no-caps>
                         <q-tooltip>Удалить категорию/каталог</q-tooltip>
                       </q-btn>
-                      <!--
+                      
                       <q-btn label="Проба" color="dbrem" class="q-ml-sm" @click.stop.prevent="onProba" flat no-caps>
                         <q-tooltip>Проба</q-tooltip>
                       </q-btn>
-                      -->
+                      
                     </q-item-section>
                   </q-item>
               </q-list>
             </q-card-section>
             <!-- <q-separator dark inset /> -->
             <q-separator />
-            <q-card-section class="q-pt-none">
+            <q-card-section class="q-py-none">
               <characteristic :characteristics="characteristics" />
               <!-- {{ simple }} -->
             </q-card-section>
