@@ -1,5 +1,5 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, onUpdated } from 'vue'
 
   defineOptions({
     name: 'Characteristic'
@@ -14,6 +14,11 @@
   const selected = ref(0)
 
   const onNodeSelected = (nodeId) => console.log(nodeId)
+
+  onUpdated(() => {
+    tree.value.expandAll()
+  })
+  
 </script>
 
 <template>
