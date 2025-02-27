@@ -10,9 +10,9 @@ class IndexCategoryAction
     public function __invoke($model): array
     {
         return [
-            'categories' => Category::getAll(),
-            'category' => $model,
-            'characteristics' =>
+            'categories' => fn() => Category::getAll(),
+            'category' => fn() => $model,
+            'characteristics' => fn() =>
                 $model->characteristics()
                     ->with('children')
                     ->get()

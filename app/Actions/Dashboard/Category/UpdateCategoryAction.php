@@ -11,6 +11,8 @@ class UpdateCategoryAction
     {
         $pathRoot = config('filesystems.disks.public.url');
 
+        // dd($data);
+
         $model->title = $data->title;
         $model->slug = $data->slug;
         $model->sort = $data->sort;
@@ -46,6 +48,8 @@ class UpdateCategoryAction
         } else {
             $model->picture_icon = $model->picture_icon ?? '';
         }
+
+        //dd($model);
 
         $model->save();
 

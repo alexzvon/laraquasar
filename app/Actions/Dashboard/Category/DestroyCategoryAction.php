@@ -9,16 +9,18 @@ class DestroyCategoryAction
 {
     public function __invoke($id): array
     {
-        if (is_dir(config('filesystems.disks.public.root').'/images/category/'.$id)) {
-            Storage::disk('public')->deleteDirectory('images/category/'.$id);
-        }
+        if ($id != 1) {
+            if (is_dir(config('filesystems.disks.public.root').'/images/category/'.$id)) {
+                Storage::disk('public')->deleteDirectory('images/category/'.$id);
+            }
 
-        if (is_dir(config('filesystems.disks.public.root').'/icons/category/'.$id)) {
-            Storage::disk('public')->deleteDirectory('icons/category/'.$id);
-        }
+            if (is_dir(config('filesystems.disks.public.root').'/icons/category/'.$id)) {
+                Storage::disk('public')->deleteDirectory('icons/category/'.$id);
+            }
 
-        Category::destroy($id);
-        Category::clearCache();
+            Category::destroy($id);
+            Category::clearCache();
+        }
 
         return [ 'category' => 1 ];
     }

@@ -100,6 +100,8 @@ Route::middleware('auth')->group(function () {
         Route::post('category/create/{category}', [CategoryController::class, 'create'])->name('category.create');
         Route::delete('category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
+        Route::post('category/proba/{category}', [CategoryController::class, 'proba'])->name('category.proba');
+
         Route::resource('users', UserController::class);
     });
 });

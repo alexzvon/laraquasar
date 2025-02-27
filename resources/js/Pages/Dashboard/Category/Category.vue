@@ -3,6 +3,10 @@
   import Characteristic from './Characteristic.vue'
   import { useForm, router } from '@inertiajs/vue3'
   import { ref } from 'vue'
+  import { useQuasar } from 'quasar'
+  // import * as $q from "quasar";
+
+  const $q = useQuasar()
   // import { api } from '../../../axios'
 
   defineOptions({
@@ -15,17 +19,18 @@
     category: Object,
   })
 
-  const visible = ref(false)
+  const urlProba = ref(route('dashboard.category.proba', { 'category': props.category.id }))
 
-  const urlCreate = ref(route('dashboard.category.create', { 'category': props.category.id }))
-  const urlAppend = ref(route('dashboard.category.append', { 'category': props.category.id }))
-  const urlUpdate = ref(route('dashboard.category.update', { 'category': props.category.id }))
-  const urlDelete = ref(route('dashboard.category.destroy', { 'id': props.category.id }))
+  // const urlCreate = ref(route('dashboard.category.create', { 'category': props.category.id }))
+  // const urlAppend = ref(route('dashboard.category.append', { 'category': props.category.id }))
+  // const urlUpdate = ref(route('dashboard.category.update', { 'category': props.category.id }))
+  // const urlDelete = ref(route('dashboard.category.destroy', { 'id': props.category.id }))
 
   const splitterModel = ref(30)
   const selected = ref(props.category.id)
   const filterTree = ref('')
   const tree = ref()
+  // const destroy = ref(false)
   
   const form = useForm({
     id: 0,
@@ -37,7 +42,19 @@
     _method: 'POST',
   })
 
-  const onNodeSelected = (nodeId) => router.visit(route('dashboard.category.index', { id: nodeId ?? 1 }), { method: 'get'})
+  const onNodeSelected = (nodeId) => {
+    router.visit(
+      route('dashboard.category.index', 
+        { id: nodeId ?? 1 }), 
+          {
+            method: 'get', 
+            only: [ ' errors', 'category', 'characteristics' ],
+            preserveState: true,
+            preserveScroll: true,
+            onSuccess: () => onReset()
+          }
+    )
+  }
 
   const onReplay = () => {
     form.id = 0
@@ -46,55 +63,43 @@
     form.sort = 100
     form.picture_image = null
     form.picture_icon = null
-    category.value.picture_image = ''
-    category.value.picture_icon = ''
+    props.category.picture_image = ''
+    props.category.picture_icon = ''
     form._method = 'POST'
   }
 
   const onAppend = () => {
-    console.log('onAppend')
-    console.log(selected.value)
-    console.log(prop.selected)
-
     if (form.id == 0) {
-      visible.value = true
       form._method = 'POST'
-      form.post(urlAppend.value, {
-        onSuccess: () => {
-          onNodeSelected(prop.selected)
-          // tree.value.setExpanded(selected.value, true)
-          selected.value = prop.selected
+      form.post(route('dashboard.category.append', { 'category': props.category.id }), 
+        {
+          onSuccess: () => onReset()
         }
-      })
-      visible.value = false
+      )
     }
   }
 
   const onCreate = () => {
     if (form.id == 0) {
-      visible.value = true
       form._method = 'POST'
-      form.post(urlCreate.value, {
-        onSuccess: () => {
-          onNodeSelected(prop.selected)
-          tree.value.setExpanded(selected.value, true)
-          selected.value = prop.selected
-        }, 
-        onFinish: () => {
-          // console.log('onFinish')
-        }
-      })
+      form.post(route('dashboard.category.create', { 'category': props.category.id }),
+        {
+          onSuccess: () => {
+            onReset()
+            tree.expandAll()
+            selected.value = props.category.id
 
-      visible.value = false
+            console.log(props.category.id)
+          }
+        }
+      )
     }
   }
 
   const onSave = () => {
     if (form.id > 1) {
-      visible.value = true
       form._method = 'PUT'
-      form.post(urlUpdate.value)
-      visible.value = false
+      form.post(route('dashboard.category.update', { 'category': props.category.id }))
     }
   }
 
@@ -108,15 +113,50 @@
     form._method = 'POST'
   }
 
+  const confirmDestroy = () => {
+
+    console.log(confirm('Внимание!!! после удаления данные не подлежат востановлении, продолжить удаление...'))
+
+    // $q.dialog({
+    //     title: 'Confirm',
+    //     message: 'Would you like to turn on the wifi?',
+    //     cancel: true,
+    //     persistent: true
+    //   }).onOk(() => {
+    //     // console.log('>>>> OK')
+    //   }).onOk(() => {
+    //     // console.log('>>>> second OK catcher')
+    //   }).onCancel(() => {
+    //     // console.log('>>>> Cancel')
+    //   }).onDismiss(() => {
+    //     // console.log('I am triggered on both OK and Cancel')
+    //   })
+
+    // $q.dialog({
+    //   title: 'Confirm',
+    //   message: 'Внимание!!! после удаления данные не подлежат востановлении, продолжить удаление...',
+    //   cancel: true,
+    //   persistent: true,
+    //   seamless: true,
+    // }).onOk(() => {
+    //   destroy.value = true    
+    // }).onCancel(() => {
+    //   destroy.value = false
+    // }).onDismiss(() => {
+    //   destroy.value = false
+    // })
+
+    // return destroy.value
+  }
+
   const onDestroy = () => {
-    visible.value = true
     form._method = 'DELETE'
-    form.post(urlDelete.value, {
-      onSuccess: () => {
-          onReplay()
-        }, 
+    form.post(route('dashboard.category.destroy', { 'id': props.category.id }), 
+      {
+        only: [ ' errors', 'categories', 'characteristics' ],
+        onBefore: () => confirm('Внимание!!! после удаления данные не подлежат востановлении, продолжить удаление...'),
+        onSuccess: () => onReplay(), 
     })
-    visible.value = false
   }
 
   const idImage = 'idImage_' + props.category.id
@@ -129,6 +169,27 @@
   const clickIcon = () => document.querySelector('#' + idIcon).click()
 
   onReset()
+
+  // selected.value = props.category.id
+
+
+  const onProba = () => {
+    console.log('start proba')
+
+        //router.post(urlProba.value, form, { only: [ 'category' ]})
+
+    // form.post(urlProba.value, { only: [ ' errors' ]})
+    // form.post(urlProba.value)
+
+    // form.post(urlProba.value, {
+    //   onSuccess: () => {
+    //       onReplay()
+    //     }, 
+    // })
+
+
+    console.log('end proba')
+  }
 </script>
 
 <template>
@@ -147,7 +208,7 @@
     </q-input>
     <q-splitter
       v-model="splitterModel"
-      style="height: calc(100vh - 120px)"
+      style="height: calc(100vh - 159px)"
     >
       <template v-slot:before>
         <q-tree
@@ -314,6 +375,11 @@
                       <q-btn label="Удалить" color="dbrem" class="q-ml-sm" @click.stop.prevent="onDestroy" flat no-caps>
                         <q-tooltip>Удалить категорию/каталог</q-tooltip>
                       </q-btn>
+                      <!--
+                      <q-btn label="Проба" color="dbrem" class="q-ml-sm" @click.stop.prevent="onProba" flat no-caps>
+                        <q-tooltip>Проба</q-tooltip>
+                      </q-btn>
+                      -->
                     </q-item-section>
                   </q-item>
               </q-list>
@@ -327,7 +393,7 @@
           </q-card>
       </template>
     </q-splitter>
-    <q-inner-loading :showing="visible">
+    <q-inner-loading :showing="form.processing">
       <q-spinner-gears size="50px" color="gries" />
     </q-inner-loading>
   </dashboard-layout>
