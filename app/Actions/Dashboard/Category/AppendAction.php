@@ -5,11 +5,13 @@ namespace App\Actions\Dashboard\Category;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
-class CreateCategoryAction
+class AppendAction
 {
-    public function __invoke(Category $root, $data): array
+    public function __invoke(Category $temp, $data): array
     {
         $pathRoot = config('filesystems.disks.public.url');
+
+        $root = $temp->parent;
 
         $create = [
             'title' => $data->title,
@@ -52,6 +54,6 @@ class CreateCategoryAction
 
         Category::clearCache();
 
-        return [ 'category' => $model->id ];
+        return [ 'category_id' => $model->id, 'characteristic_id' => 0 ];
     }
 }

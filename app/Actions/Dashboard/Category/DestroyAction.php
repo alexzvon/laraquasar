@@ -5,7 +5,7 @@ namespace App\Actions\Dashboard\Category;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
-class DestroyCategoryAction
+class DestroyAction
 {
     public function __invoke($id): array
     {
@@ -22,6 +22,6 @@ class DestroyCategoryAction
             Category::clearCache();
         }
 
-        return [ 'category' => 1 ];
+        return [ 'category_id' => 1, 'characteristic_id' => 0 ];
     }
 }

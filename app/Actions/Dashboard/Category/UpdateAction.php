@@ -5,13 +5,11 @@ namespace App\Actions\Dashboard\Category;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
-class UpdateCategoryAction
+class UpdateAction
 {
     public function __invoke($model, $data): array
     {
         $pathRoot = config('filesystems.disks.public.url');
-
-        // dd($data);
 
         $model->title = $data->title;
         $model->slug = $data->slug;
@@ -49,12 +47,10 @@ class UpdateCategoryAction
             $model->picture_icon = $model->picture_icon ?? '';
         }
 
-        //dd($model);
-
         $model->save();
 
         Category::clearCache();
 
-        return [ 'category' => $model->id ];
+        return [ 'category_id' => $model->id, 'characteristic_id' => 0 ];
     }
 }

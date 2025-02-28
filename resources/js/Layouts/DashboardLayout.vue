@@ -12,8 +12,8 @@
 
     const page = usePage()
 
-    const catalog_id = page.props.catalog_id ?? 0
-    const chapter_id = page.props.chapter_id ?? 0
+    // const catalog_id = page.props.catalog_id ?? 0
+    // const chapter_id = page.props.chapter_id ?? 0
     const location = page.props.ziggy.location
 
     const onActiveUsers = () => {
@@ -25,9 +25,10 @@
     }
 
     const onActiveCategory = () => {
-      let id = usePage().props.category == undefined ? 0: usePage().props.category.id
+      let category_id = usePage().props.category == undefined ? 0: usePage().props.category.id
+      let characteristic_id = usePage().props.characteric == undefined ? 0: usePage().props.characteric.id
 
-      return route('dashboard.category.index', { category: id }) == location
+      return route('dashboard.category.index', { category_id: category_id, characteristic_id: characteristic_id }) == location
     }
 
     const visible = ref(false)
@@ -145,7 +146,7 @@
               dense
               clickable
               v-ripple
-              @click="loadItem('dashboard.category.index', { category: 1 }, 'get')"
+              @click="loadItem('dashboard.category.index', { category_id: 1, characteristic_id: 0 }, 'get')"
               :active="onActiveCategory()"
               active-class="text-gries bg-mutan"
             >

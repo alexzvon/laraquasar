@@ -3,6 +3,7 @@
   import Characteristic from './Characteristic.vue'
   import { useForm, router } from '@inertiajs/vue3'
   import { ref, toRaw } from 'vue'
+
   // import { useQuasar } from 'quasar'
   // import * as $q from "quasar";
 
@@ -15,11 +16,15 @@
 
   const props = defineProps({
     categories: Array,
-    characteristics: Array,
     category: Object,
+    characteristics: Array,
+    characteristic: Object,
   })
 
-  const urlProba = ref(route('dashboard.category.proba', { 'category': props.category.id }))
+  console.log(props.categories)
+  console.log(props.category)
+  console.log(props.characteristics)
+  console.log(props.characteristic)
 
   const splitterModel = ref(30)
   const selected = ref(props.category.id)
@@ -40,10 +45,10 @@
   const onNodeSelected = (nodeId) => {
     router.visit(
       route('dashboard.category.index', 
-        { id: nodeId ?? 1 }), 
+        { category_id: nodeId ?? 1, characteristic_id: props.characteristic == null ? 0 : props.characteristic.id }), 
           {
             method: 'get', 
-            only: [ ' errors', 'category', 'characteristics' ],
+            only: [ ' errors', 'category', 'characteristics', 'characteristic' ],
             preserveState: true,
             preserveScroll: true,
             onSuccess: () => onReset()
@@ -138,17 +143,20 @@
 
 
   selected.value = 1122
+
   // tree.value.setExpanded(selected.value, true)
   // tree.value.setSelectedNode(selected.value)
 
-  console.log(router)
-  console.log(form)
+  // console.log(router)
+  // console.log(form)
 
 
         //router.post(urlProba.value, form, { only: [ 'category' ]})
 
     // form.post(urlProba.value, { only: [ ' errors' ]})
-    // form.post(urlProba.value)
+
+
+  form.post(route('dashboard.category.proba', { 'category': props.category.id, 'characteristic': 55 }))
 
     // form.post(urlProba.value, {
     //   onSuccess: () => {
@@ -356,7 +364,7 @@
             <!-- <q-separator dark inset /> -->
             <q-separator />
             <q-card-section class="q-py-none">
-              <characteristic :characteristics="characteristics" />
+              <characteristic :characteristics="characteristics" :characteristic="characteristic" />
               <!-- {{ simple }} -->
             </q-card-section>
           </q-card>

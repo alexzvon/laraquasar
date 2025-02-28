@@ -1,23 +1,75 @@
 <script setup>
-  import { ref, onUpdated } from 'vue'
+  import { useForm } from '@inertiajs/vue3'
+  import { ref, onMounted, onUpdated, isProxy } from 'vue'
 
   defineOptions({
     name: 'Characteristic'
   })
 
   const props = defineProps({
-    characteristics: Array
+    characteristics: Array,
+    characteristic: Object,
   })
+
+  // console.log(props.characteristics)
+  // console.log(props.characteristic)
 
   const tree = ref()
   const widthSplitter = ref(30)
-  const selected = ref(0)
+  const selected = ref(null)
 
-  const onNodeSelected = (nodeId) => console.log(nodeId)
+  const form = useForm({})
+
+  const onSetNodeToForm = (node) => {
+    if (isProxy(node)) {
+      form.id = node.id
+      form.sort = node.sort
+      form.title = node.title
+      form.description = node.description
+    }
+  }
+
+  const onResetForm = () => {
+    form.id = null
+    form.sort = null
+    form.title = null
+    form.description = null
+    selected.value = null
+  }
+
+  const onNodeSelected = (nodeId) => {
+    onSetNodeToForm(tree.value.getNodeByKey(nodeId))
+  }
+
+  onMounted(() => {
+    // console.log('onMounted')
+    // console.log(props.characteristic)
+
+    tree.value.expandAll()
+    if (props.characteristic) {
+      selected.value = props.characteristic.id
+      onNodeSelected(props.characteristic.id)
+    } else {
+      onResetForm()
+    }
+  })
 
   onUpdated(() => {
+    // console.log('onUpdated')
+    // console.log(props.characteristic)
+
     tree.value.expandAll()
+    if (props.characteristic) {
+      selected.value = props.characteristic.id
+      onNodeSelected(props.characteristic.id)
+    } else {
+      onResetForm()
+    }
   })
+
+  const onSave = () => {
+
+  }
   
 </script>
 
@@ -39,7 +91,59 @@
       />
     </template>
     <template v-slot:after>
-      {{ characteristics }}
+      <q-list>
+        <q-item>
+          <q-item-section>
+            <q-input
+              filled
+              square
+              label-color="gries"
+              color="gries"
+              v-model="form.id"
+              label="Id"
+              dense
+              readonly
+              class="q-field--with-bottom"
+            />
+            <q-input
+              filled
+              square
+              label-color="gries"
+              color="gries"
+              v-model="form.sort"
+              label="Сортировка"
+              dense
+              class="q-field--with-bottom"
+            />
+            <q-input
+              filled
+              square
+              label-color="gries"
+              color="gries"
+              v-model="form.title"
+              label="Наименование"
+              dense
+              class="q-field--with-bottom"
+            />
+            <q-input
+              filled
+              square
+              label-color="gries"
+              color="gries"
+              v-model="form.description"
+              label="Описание"
+              dense
+              class="q-field--with-bottom"
+            />
+          </q-item-section>
+          <q-item-section>
+            <q-btn label="Сохранить" flat no-caps color="gries" @click.stop.prevent="onSave" />
+            <q-btn label="Вернуть" flat no-caps/>
+            <q-btn label="Новый" flat no-caps/>
+            <q-btn label="Удалить" flat no-caps/>
+          </q-item-section>
+        </q-item>
+      </q-list>
     </template>
   </q-splitter>
 </template>
