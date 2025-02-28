@@ -17,6 +17,7 @@ use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListCategoryController;
 use App\Models\Category;
+use App\Models\Characteristic;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Dashboard\ColorController;
@@ -94,13 +95,17 @@ Route::middleware('auth')->group(function () {
         // Route::resource('chapter', ChapterController::class)->except(['index', 'edit', 'create']);
         // Route::resource('category', CategoryController::class)->except(['edit']);
 
-        Route::get('category/{category}', [CategoryController::class, 'index'])->name('category.index');
+        // Route::get('category/{category}/{characteristic}', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('category/{category_id}/{characteristic_id}', [CategoryController::class, 'index'])->name('category.index');
+
         Route::put('category/{category}', [CategoryController::class, 'update'])->name('category.update');
+
         Route::post('category/append/{category}', [CategoryController::class, 'append'])->name('category.append');
+        
         Route::post('category/create/{category}', [CategoryController::class, 'create'])->name('category.create');
         Route::delete('category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
-        Route::post('category/proba/{category}', [CategoryController::class, 'proba'])->name('category.proba');
+        Route::post('category/proba/{category}/{characteristic}', [CategoryController::class, 'proba'])->name('category.proba');
 
         Route::resource('users', UserController::class);
     });
