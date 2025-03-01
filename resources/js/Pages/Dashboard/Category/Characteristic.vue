@@ -18,7 +18,14 @@
   const widthSplitter = ref(30)
   const selected = ref(null)
 
-  const form = useForm({})
+  const form = useForm({
+    id: 0,
+    sort: 100,
+    title: null,
+    description: null,
+    category_id: null,
+    _method: 'POST'
+  })
 
   const onSetNodeToForm = (node) => {
     if (isProxy(node)) {
@@ -26,6 +33,8 @@
       form.sort = node.sort
       form.title = node.title
       form.description = node.description
+      form.category_id = node.category_id
+      form._method = 'POST'
     }
   }
 
@@ -34,6 +43,8 @@
     form.sort = null
     form.title = null
     form.description = null
+    form.category_id = null
+    form._method = 'POST'
     selected.value = null
   }
 
@@ -68,6 +79,17 @@
   })
 
   const onSave = () => {
+    form._method = 'PUT'
+    form.post(route('dashboard.category.characteristic.update'),{
+      onSuccess: () => {
+        console.log('onSuccess')
+        
+        console.log(props.characteristics)
+        console.log(props.characteristic)
+
+        onNodeSelected(props.characteristic)
+      }
+    })
 
   }
   

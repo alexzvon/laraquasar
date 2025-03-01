@@ -44,19 +44,20 @@ class CategoryController extends Controller
         return redirect()->intended(route('dashboard.category.index', $action($id)));
     }
 
-    public function proba(Category $category, Characteristic $characteristic, Request $request) //: RedirectResponse
+    public function proba(Category $category, Characteristic $characteristic, Request $request): RedirectResponse
     {
-        dump($category);
-        dump($characteristic);
+        // dump($category);
+        // dump($characteristic);
         // dump($category->characteristics());
         // dump($category->characteristics->find(55));
         // dump($category->characteristics->find(555));
 
-        dd('code');
+        // dd('code');
 
-        sleep(5);
+        // sleep(5);
 
-        return redirect()->intended(route('dashboard.category.index', [ 'category' => $category->id]));
+        return redirect()->intended(route('dashboard.category.index', 
+        [ 'category_id' => $category->id, 'characteristic_id' => $characteristic->id ]));
     }
 
 }

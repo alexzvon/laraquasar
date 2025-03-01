@@ -2,7 +2,7 @@
   import DashboardLayout from '@/Layouts/DashboardLayout.vue'
   import Characteristic from './Characteristic.vue'
   import { useForm, router } from '@inertiajs/vue3'
-  import { ref, toRaw } from 'vue'
+  import { onUpdated, ref, toRaw } from 'vue'
 
   // import { useQuasar } from 'quasar'
   // import * as $q from "quasar";
@@ -21,10 +21,10 @@
     characteristic: Object,
   })
 
-  console.log(props.categories)
-  console.log(props.category)
-  console.log(props.characteristics)
-  console.log(props.characteristic)
+  // console.log(props.categories)
+  // console.log(props.category)
+  // console.log(props.characteristics)
+  // console.log(props.characteristic)
 
   const splitterModel = ref(30)
   const selected = ref(props.category.id)
@@ -48,7 +48,7 @@
         { category_id: nodeId ?? 1, characteristic_id: props.characteristic == null ? 0 : props.characteristic.id }), 
           {
             method: 'get', 
-            only: [ ' errors', 'category', 'characteristics', 'characteristic' ],
+            // only: [ ' errors', 'category', 'characteristics', 'characteristic' ],
             preserveState: true,
             preserveScroll: true,
             onSuccess: () => onReset()
@@ -156,7 +156,7 @@
     // form.post(urlProba.value, { only: [ ' errors' ]})
 
 
-  form.post(route('dashboard.category.proba', { 'category': props.category.id, 'characteristic': 55 }))
+  form.post(route('dashboard.category.proba', { 'category': 7, 'characteristic': 55 }))
 
     // form.post(urlProba.value, {
     //   onSuccess: () => {
@@ -167,6 +167,11 @@
 
     console.log('end proba')
   }
+
+  onUpdated(() => {
+    characteristics.value = toRaw(props.characteristics)
+  })
+
 </script>
 
 <template>
