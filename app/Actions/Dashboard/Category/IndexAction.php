@@ -17,6 +17,8 @@ class IndexAction
                     Category::find($categoryId)
                         ->characteristics()
                         ->with('children')
+                        ->orderBy('sort')
+                        ->orderBy('id')
                         ->get()
                         ->makeHidden(['created_at', 'updated_at'])
                         ->toTree()

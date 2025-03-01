@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Dashboard\ColorController;
 use App\Http\Controllers\Dashboard\DimensionController;
+use App\Http\Controllers\Dashboard\CharacteristicController;
 
 Route::get('/poligon/category', function (Request $request) {
     $categories = Category::with('children')->orderBy('sort')->orderBy('id')->get()->toTree()->toArray();
@@ -90,22 +91,39 @@ Route::middleware('auth')->group(function () {
         Route::resource('dimension', DimensionController::class)->except(['show', 'edit', 'create']);
 
 
-
-        
         // Route::resource('chapter', ChapterController::class)->except(['index', 'edit', 'create']);
         // Route::resource('category', CategoryController::class)->except(['edit']);
-
         // Route::get('category/{category}/{characteristic}', [CategoryController::class, 'index'])->name('category.index');
-        Route::get('category/{category_id}/{characteristic_id}', [CategoryController::class, 'index'])->name('category.index');
 
-        Route::put('category/{category}', [CategoryController::class, 'update'])->name('category.update');
+        // Route::get('category/{category_id}/{characteristic_id}', [CategoryController::class, 'index'])->name('category.index');
+        // Route::put('category/{category}', [CategoryController::class, 'update'])->name('category.update');
+        // Route::post('category/append/{category}', [CategoryController::class, 'append'])->name('category.append');
+        // Route::post('category/create/{category}', [CategoryController::class, 'create'])->name('category.create');
+        // Route::delete('category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+        // Route::post('category/proba/{category}/{characteristic}', [CategoryController::class, 'proba'])->name('category.proba');
 
-        Route::post('category/append/{category}', [CategoryController::class, 'append'])->name('category.append');
-        
-        Route::post('category/create/{category}', [CategoryController::class, 'create'])->name('category.create');
-        Route::delete('category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+        Route::prefix('category')->name('category.')->group(function () {
+            Route::get('{category_id}/{characteristic_id}', [CategoryController::class, 'index'])->name('index');
+            Route::put('{category}', [CategoryController::class, 'update'])->name('update');
+            Route::post('append/{category}', [CategoryController::class, 'append'])->name('append');
+            Route::post('create/{category}', [CategoryController::class, 'create'])->name('create');
+            Route::delete('{id}', [CategoryController::class, 'destroy'])->name('destroy');
+    
+            Route::post('proba/{category}/{characteristic}', [CategoryController::class, 'proba'])->name('proba');
 
-        Route::post('category/proba/{category}/{characteristic}', [CategoryController::class, 'proba'])->name('category.proba');
+            Route::prefix('characteristic')->name('characteristic.')->group(function () {
+                Route::put('update', [ CharacteristicController::class, 'update' ])->name('update');
+                // Route::put('update', function(){
+                //     dd('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+                // })->name('update');
+            });
+
+
+
+
+    
+        });
+
 
         Route::resource('users', UserController::class);
     });

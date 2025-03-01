@@ -25,10 +25,15 @@
     }
 
     const onActiveCategory = () => {
-      let category_id = usePage().props.category == undefined ? 0: usePage().props.category.id
-      let characteristic_id = usePage().props.characteric == undefined ? 0: usePage().props.characteric.id
+      // let category_id = usePage().props.category == undefined ? 0: usePage().props.category.id
+      // let characteristic_id = usePage().props.characteric == undefined ? 0: usePage().props.characteric.id
+      // let location_page = page.props.ziggy.location
 
-      return route('dashboard.category.index', { category_id: category_id, characteristic_id: characteristic_id }) == location
+      let category_id = page.props.category == undefined ? 0: page.props.category.id
+      let characteristic_id = page.props.characteric == undefined ? 0: page.props.characteric.id
+      let location_page = page.props.ziggy.location
+
+      return route('dashboard.category.index', { category_id: category_id, characteristic_id: characteristic_id }) == location_page
     }
 
     const visible = ref(false)
