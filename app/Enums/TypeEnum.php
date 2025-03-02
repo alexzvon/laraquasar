@@ -30,9 +30,9 @@ enum TypeNameEnum: string
 
     case Boolean = 'Булево';
     case Integer = 'Число';
-    case Brand = 'Брэнд';
-    case Color = 'Цвет';
-    case Dimension = 'Размер';
+    case Brand = 'Справочник Брэнд';
+    case Color = 'Справочник Цвет';
+    case Dimension = 'Справочник Размер';
 }
 
 enum TypeTableEnum: string

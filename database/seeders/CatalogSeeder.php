@@ -20,13 +20,13 @@ class CatalogSeeder extends Seeder
      */
     public function run(): void
     {
-        Catalog::factory($this->count)->has(
-            Chapter::factory($this->count)->has(
-                Category::factory($this->count)->has(
-                    Product::factory($this->count)
-                )
-            )
-        )
-            ->create();
+        // Catalog::factory($this->count)->has(
+        //     Chapter::factory($this->count)->has(
+        //         Category::factory($this->count)->has(
+        //             Product::factory($this->count)
+        //         )
+        //     )
+        // )
+        //     ->create();
     }
 }

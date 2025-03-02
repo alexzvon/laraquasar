@@ -61,10 +61,10 @@ class Category extends Model    // implements HasMedia
         });
     }
 
-    public function characteristics(): HasMany
-    {
-        return $this->hasMany(Characteristic::class);
-    }
+    // public function characteristics(): HasMany
+    // {
+    //     return $this->hasMany(Characteristic::class);
+    // }
 
     public static function getAll(): array
     {

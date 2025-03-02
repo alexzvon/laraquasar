@@ -15,7 +15,6 @@ return new class extends Migration
         Schema::create('characteristics', function (Blueprint $table) {
             $table->id();
             $table->nestedSet(); // Добавляет поля _lft, _rgt, parent_id
-            $table->foreignIdFor(Category::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->boolean('smart')->default(false);
             $table->unsignedInteger('sort')->default(100);
             $table->string('title');

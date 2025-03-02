@@ -6,6 +6,17 @@ namespace App\Enums\Traits;
 
 trait EnumValue
 {
+    public static function getOption($k): array
+    {
+        foreach (self::getValueValue() as $key => $value) {
+            if ($key == $k) {
+                return [ 'label' => $value, 'value' => $key ];
+            }
+        }
+
+        return [];
+    }
+
     public static function getValueName(): array
     {
         return array_combine(
@@ -13,7 +24,6 @@ trait EnumValue
             array_column(self::cases(), 'name'),
         );
     }
-
 
     public static function getNameValue(): array
     {
@@ -25,8 +35,8 @@ trait EnumValue
 
     public static function getListOption(): array
     {
-        foreach (self::getNameValue() as $key => $value) {
-            $result[] = ['label' => $value, 'value' => $key];
+        foreach (self::getValueValue() as $key => $value) {
+            $result[] = [ 'label' => $value, 'value' => $key ];
         }
 
         return $result;
@@ -39,5 +49,4 @@ trait EnumValue
             array_column(self::getEnumName()::cases(), 'value'),
         );
     }
-
 }

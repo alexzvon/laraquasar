@@ -30,6 +30,6 @@ class UpdateAction
             );
         }
 
-        return [ 'category_id' => $data->category_id, 'characteristic_id' => $data->id ];
+        return [ 'characteristic_id' => $data->id ];
     }
 }

@@ -109,19 +109,27 @@ Route::middleware('auth')->group(function () {
             Route::post('create/{category}', [CategoryController::class, 'create'])->name('create');
             Route::delete('{id}', [CategoryController::class, 'destroy'])->name('destroy');
     
+
+
             Route::post('proba/{category}/{characteristic}', [CategoryController::class, 'proba'])->name('proba');
 
-            Route::prefix('characteristic')->name('characteristic.')->group(function () {
-                Route::put('update', [ CharacteristicController::class, 'update' ])->name('update');
-                // Route::put('update', function(){
-                //     dd('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-                // })->name('update');
-            });
+
+            // Route::prefix('characteristic')->name('characteristic.')->group(function () {
+            //     Route::put('update', [ CharacteristicController::class, 'update' ])->name('update');
+            //     // Route::put('update', function(){
+            //     //     dd('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+            //     // })->name('update');
+            // });
 
 
+        });
 
-
-    
+        Route::prefix('characteristic')->name('characteristic.')->group(function() {
+            Route::get('{characteristic_id}', [ CharacteristicController::class, 'index' ])->name('index');
+            Route::put('update', [ CharacteristicController::class, 'update' ])->name('update');
+            // Route::post('append/{characteristic_id}', [ CharacteristicController::class, 'append' ])->name('append');
+            Route::post('create', [ CharacteristicController::class, 'create' ])->name('create');
+            Route::delete('{characteristic_id}', [ CharacteristicController::class, 'destroy' ])->name('destroy');
         });
 
 

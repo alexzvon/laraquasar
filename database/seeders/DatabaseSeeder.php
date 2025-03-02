@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             OwnerSeeder::class,
             CategorySeeder::class,
-            // CharacteristicSeeder::class,
+            CharacteristicSeeder::class,
         ]);
     }
 }

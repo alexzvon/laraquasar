@@ -18,8 +18,8 @@ class CharacteristicFactory extends Factory
     {
         return [
             'title' => fake()->name(),
-            'smart' => fake()->random_int(0,1),
-            'type' => fake()->random_int(1,5),
+            'smart' => fake()->rand(0, 1),
+            'type' => fake()->rand(1, 5),
         ];
     }
 }
