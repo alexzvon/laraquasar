@@ -6,26 +6,38 @@ use App\Models\Characteristic;
 
 class CreateAction
 {
-    public function __invoke(Characteristic $root, $data): array
+    public function __invoke($data): array
     {
-        if ($data->parent_id) {
-            $model = Characteristic::create([
-                'title' => $data->title,
-                'sort' => $data->sort,
-                'smart' => $data->smart,
-                'category_id' => $data->category_id,
-                'type' => $data->type,
-                'description' => $data->description,
-            ], $root);
-        } else {
-            $model = Characteristic::create([
-                'title' => $data->title,
-                'sort' => $data->sort,
-                'description' => $data->description,
-                'category_id' => $data->category_id,
-            ]);
-        }
+        $model = Characteristic::create([
+            'parent_id' => $data->parent_id,
+            'title' => $data->title,
+            'sort' => $data->sort,
+            'smart' => $data->smart,
+            'type' => $data->type,
+            'description' => $data->description,
+        ]);
 
-        return [ 'category_id' => $model->category_id, 'characteristic_id' => $model->id ];
+
+
+
+        // if ($data->parent_id) {
+        //     $model = Characteristic::create([
+        //         'title' => $data->title,
+        //         'sort' => $data->sort,
+        //         'smart' => $data->smart,
+        //         'category_id' => $data->category_id,
+        //         'type' => $data->type,
+        //         'description' => $data->description,
+        //     ], $root);
+        // } else {
+        //     $model = Characteristic::create([
+        //         'title' => $data->title,
+        //         'sort' => $data->sort,
+        //         'description' => $data->description,
+        //         'category_id' => $data->category_id,
+        //     ]);
+        // }
+
+        return [ 'characteristic_id' => $model->id ];
     }
 }

@@ -48,7 +48,7 @@
         { category_id: nodeId ?? 1, characteristic_id: props.characteristic == null ? 0 : props.characteristic.id }), 
           {
             method: 'get', 
-            // only: [ ' errors', 'category', 'characteristics', 'characteristic' ],
+            only: [ ' errors', 'category', 'characteristics', 'characteristic' ],
             preserveState: true,
             preserveScroll: true,
             onSuccess: () => onReset()

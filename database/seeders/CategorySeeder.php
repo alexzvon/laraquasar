@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
-use App\Models\Characteristic;
+// use App\Models\Characteristic;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -36,24 +36,6 @@ class CategorySeeder extends Seeder
                         'title' => fake()->unique()->company(),
                         'count_products' => 0,
                     ], $children2);
-
-                    for ($v = 0; $v < 3; $v++) {
-                        $group = Characteristic::create([
-                            'category_id' => $children3->id,
-                            'title' => fake()->name(),
-                            'description' => fake()->text(30),
-                        ]);
-
-                        for ($k = 0; $k < 5; $k++) {
-                            Characteristic::create([
-                                'category_id' => $children3->id,
-                                'title' => fake()->title(),
-                                'smart' => rand(0, 1),
-                                'type' => rand(1, 5),
-                                'description' => fake()->text(30),
-                            ], $group);
-                        }
-                    }
                 }
             }
         }

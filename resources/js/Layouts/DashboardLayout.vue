@@ -36,6 +36,13 @@
       return route('dashboard.category.index', { category_id: category_id, characteristic_id: characteristic_id }) == location_page
     }
 
+    const onActiveCharacteristic = () => {
+      let characteristic_id = page.props.characteric == undefined ? 0: page.props.characteric.id
+    
+      return route('dashboard.characteristic.index', { 'characteristic_id': characteristic_id }) == location
+
+    }
+
     const visible = ref(false)
 
     const loadItem = (r, p, m) => {
@@ -188,7 +195,28 @@
 							</q-icon>
               </q-item-section>
               <q-item-section>
-                  Слайды
+                Слайды
+              </q-item-section>
+            </q-item>
+
+            <q-item
+              dense
+              clickable
+              v-ripple
+              @click="loadItem('dashboard.characteristic.index', { 'characteristic_id': 0 }, 'get')"
+              :active="onActiveCharacteristic()"
+              active-class="text-gries bg-mutan"
+            >
+              <q-item-section avatar>
+						    <q-icon size="sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" viewBox="-0.5 -0.5 24 24" id="Slide-Library-Fill--Streamline-Sharp-Fill-Material" height="24" width="24">
+                    <desc>Slide Library Fill Streamline Icon: https://streamlinehq.com</desc>
+                    <path fill="#000000" d="M1.9166666666666667 19.166570833333335v-12.458333333333334h1.4375v11.020833333333334h13.895833333333334v1.4375H1.9166666666666667Zm3.8333333333333335 -3.8333333333333335v-11.5h10.014583333333333l-1.4375 1.4375H7.1875v8.625h12.458333333333334v-7.139583333333333l1.4375 -1.4375v10.014583333333333H5.75Zm7.1875 -4.048958333333333c-0.33541666666666664 0 -0.6468750000000001 -0.071875 -0.9343750000000001 -0.215625 -0.2875 -0.14375 -0.5350854166666666 -0.35137291666666665 -0.7427083333333334 -0.6229166666666667 0.22362708333333334 0 0.41927083333333337 -0.08385416666666666 0.5869791666666667 -0.2515625 0.16770833333333332 -0.16770833333333332 0.2515625 -0.36335208333333335 0.2515625 -0.5869791666666667 0 -0.35137291666666665 0.12376875 -0.6468750000000001 0.3713541666666667 -0.8864583333333335s0.5470645833333333 -0.359375 0.8984375 -0.359375c0.35137291666666665 0 0.6468750000000001 0.11979166666666667 0.8864583333333335 0.359375s0.359375 0.5350854166666666 0.359375 0.8864583333333335c0 0.4632104166666667 -0.16373125 0.8585229166666667 -0.49114583333333334 1.1859375 -0.32741458333333334 0.32741458333333334 -0.7227270833333334 0.49114583333333334 -1.1859375 0.49114583333333334Zm2.8510416666666667 -2.73125 -1.365625 -1.365625 4.456250000000001 -4.408333333333333 1.3416666666666666 1.3416666666666666 -4.432291666666667 4.432291666666667Z" stroke-width="1"></path>
+                  </svg>
+							</q-icon>
+              </q-item-section>
+              <q-item-section>
+                Характеристики
               </q-item-section>
             </q-item>
 

@@ -4,12 +4,12 @@ namespace App\Http\Requests\Dashboard\Characteristic;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     public function prepareForValidation()
     {
         $this->merge([
-            'type' => $this->type[ 'value' ],
+            'type' => is_null($this->type) ? 1 : $this->type[ 'value' ],
         ]);
     }
 
@@ -29,7 +29,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => [ 'required', 'integer', 'gte:1' ],
+            'id' => [ 'required', 'integer', 'size:0' ],
             // 'parent_id' => [ 'nullable', 'integer', 'gt:0' ],
             'sort' => [ 'required', 'integer', 'gte:1' ],
             'title' => [ 'required', 'string', 'max:250' ],
