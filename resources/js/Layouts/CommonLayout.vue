@@ -55,86 +55,85 @@
 		<q-layout view="lHh lpr lFf">
 	  		<q-header bordered class="q-pa-none rc-font border-gries" height-hint="98">
 	  			<div class="bg-gries text-mutan">
-					<q-toolbar class="bg-gries text-mutan q-pa-none common-layout-max-width row justify-startr items-center">
-						<div class="col-1 self-center">
-		  					<q-btn flat class="q-px-none q-btn-bg-none" no-caps>
-		  						<div class="row items-center no-wrap">
-									<q-icon class="shake">
-										<svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" viewBox="0 0 24 24" id="Location-Pin-1--Streamline-Cyber" height="24"	 width="24">
-			  								<desc>Location Pin 1 Streamline Icon: https://streamlinehq.com</desc>
-			  								<path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M16.5 19.5h3l4 2 -4 2h-15l-4 -2 4 -2h3" stroke-width="1"></path>
-			  								<path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12 21.5 5.5 10.087V4.609L12 0.5l6.5 4.109v5.478L12 21.5Z" stroke-width="1"></path>
-			  								<path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m9.5 5.93403 2.5 -1.555 2.5 1.555v2.639L12 10.129 9.5 8.57303v-2.639Z" stroke-width="1"></path>
-										</svg>
-									</q-icon>
-									<div class="text-center q-ml-sm shake">Москва</div>
-		  						</div>
-		  					</q-btn>
-						</div>
-						<div class="col-2 self-center">
-		  					<q-toolbar-title class="text-center">Start router</q-toolbar-title>
-						</div>
-						<div class="col-4 self-center">
-							<q-btn-group flat class="full-width row">
-								<Link href="/" class="text-mutan bg-gries col-3">
-									<q-btn flat square label="О нас" class="full-width" no-caps />
-								</Link>
-								<Link href="/" class="text-mutan bg-gries col-3">
-									<q-btn flat square label="Новости" class="full-width" no-caps />
-								</Link>
-								<Link href="/" class="text-mutan bg-gries col-3">
-									<q-btn flat square label="Оплата" class="full-width" no-caps />
-								</Link>
-								<Link href="/" class="text-mutan bg-gries col-3">
-									<q-btn flat square label="Доставка" class="full-width" no-caps />
-								</Link>
+						<q-toolbar class="bg-gries text-mutan q-pa-none common-layout-max-width row justify-startr items-center">
+							<div class="col-1 self-center">
+									<q-btn flat class="q-px-none q-btn-bg-none" no-caps>
+										<div class="row items-center no-wrap">
+										<q-icon class="shake">
+											<svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" viewBox="0 0 24 24" id="Location-Pin-1--Streamline-Cyber" height="24"	 width="24">
+													<desc>Location Pin 1 Streamline Icon: https://streamlinehq.com</desc>
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M16.5 19.5h3l4 2 -4 2h-15l-4 -2 4 -2h3" stroke-width="1"></path>
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12 21.5 5.5 10.087V4.609L12 0.5l6.5 4.109v5.478L12 21.5Z" stroke-width="1"></path>
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="m9.5 5.93403 2.5 -1.555 2.5 1.555v2.639L12 10.129 9.5 8.57303v-2.639Z" stroke-width="1"></path>
+											</svg>
+										</q-icon>
+										<div class="text-center q-ml-sm shake">Москва</div>
+										</div>
+									</q-btn>
+							</div>
+							<div class="col-2 self-center">
+									<q-toolbar-title class="text-center">Start router</q-toolbar-title>
+							</div>
+							<div class="col-4 self-center">
+								<q-btn-group flat class="full-width row">
+									<Link href="/" class="text-mutan bg-gries col-3">
+										<q-btn flat square label="О нас" class="full-width" no-caps />
+									</Link>
+									<Link href="/" class="text-mutan bg-gries col-3">
+										<q-btn flat square label="Новости" class="full-width" no-caps />
+									</Link>
+									<Link href="/" class="text-mutan bg-gries col-3">
+										<q-btn flat square label="Оплата" class="full-width" no-caps />
+									</Link>
+									<Link href="/" class="text-mutan bg-gries col-3">
+										<q-btn flat square label="Доставка" class="full-width" no-caps />
+									</Link>
 								</q-btn-group>
-						</div>
-                        <div class="col-5 self-center text-end">
-                            <q-btn v-if="!user" flat class="q-px-none q-btn-bg-none" :href="route('login')" no-caps>
-		  						<div class="row items-center no-wrap">
-									<q-icon class="shake">
-                                        <svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" viewBox="0 0 24 24" id="User-2--Streamline-Guidance-Free" height="24" width="24">
-                                            <desc>User 2 Streamline Icon: https://streamlinehq.com</desc>
-                                            <path d="M21.435 16.677V23.5H2.565v-6.823S6.192 14.5 12 14.5c5.806 0 9.435 2.177 9.435 2.177Z" stroke-width="1"></path>
-                                            <path d="M6.92 5.58A5.084 5.084 0 0 1 12.005 0.5a5.073 5.073 0 0 1 5.075 5.08c0 3.89 -4.974 6.533 -4.974 6.533h-0.214S6.919 9.47 6.919 5.58Z" stroke-width="1"></path>
-                                        </svg>
-									</q-icon>
-									<div class="text-center q-ml-sm shake">Вход</div>
-		  						</div>
-		  					</q-btn>
-
-                            <q-btn v-else flat class="q-px-none q-btn-bg-none" @click="toggleRightDrawer" no-caps>
-		  						<div class="row items-center no-wrap">
-									<q-icon class="shake">
-                                        <svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" viewBox="0 0 24 24" id="User-2--Streamline-Guidance-Free" height="24" width="24">
-                                            <desc>User 2 Streamline Icon: https://streamlinehq.com</desc>
-                                            <path d="M21.435 16.677V23.5H2.565v-6.823S6.192 14.5 12 14.5c5.806 0 9.435 2.177 9.435 2.177Z" stroke-width="1"></path>
-                                            <path d="M6.92 5.58A5.084 5.084 0 0 1 12.005 0.5a5.073 5.073 0 0 1 5.075 5.08c0 3.89 -4.974 6.533 -4.974 6.533h-0.214S6.919 9.47 6.919 5.58Z" stroke-width="1"></path>
-                                        </svg>
-									</q-icon>
-									<div class="text-center q-ml-sm shake">{{ $page.props.auth.user.name }}</div>
-		  						</div>
-		  					</q-btn>
-                        </div>
-					</q-toolbar>
+							</div>
+							<div class="col-5 self-center text-end">
+								<q-btn v-if="!user" flat class="q-px-none q-btn-bg-none" :href="route('login')" no-caps>
+									<div class="row items-center no-wrap">
+										<q-icon class="shake">
+											<svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" viewBox="0 0 24 24" id="User-2--Streamline-Guidance-Free" height="24" width="24">
+												<desc>User 2 Streamline Icon: https://streamlinehq.com</desc>
+												<path d="M21.435 16.677V23.5H2.565v-6.823S6.192 14.5 12 14.5c5.806 0 9.435 2.177 9.435 2.177Z" stroke-width="1"></path>
+												<path d="M6.92 5.58A5.084 5.084 0 0 1 12.005 0.5a5.073 5.073 0 0 1 5.075 5.08c0 3.89 -4.974 6.533 -4.974 6.533h-0.214S6.919 9.47 6.919 5.58Z" stroke-width="1"></path>
+											</svg>
+										</q-icon>
+										<div class="text-center q-ml-sm shake">Вход</div>
+									</div>
+								</q-btn>
+								<q-btn v-else flat class="q-px-none q-btn-bg-none" @click="toggleRightDrawer" no-caps>
+									<div class="row items-center no-wrap">
+										<q-icon class="shake">
+											<svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" viewBox="0 0 24 24" id="User-2--Streamline-Guidance-Free" height="24" width="24">
+												<desc>User 2 Streamline Icon: https://streamlinehq.com</desc>
+												<path d="M21.435 16.677V23.5H2.565v-6.823S6.192 14.5 12 14.5c5.806 0 9.435 2.177 9.435 2.177Z" stroke-width="1"></path>
+												<path d="M6.92 5.58A5.084 5.084 0 0 1 12.005 0.5a5.073 5.073 0 0 1 5.075 5.08c0 3.89 -4.974 6.533 -4.974 6.533h-0.214S6.919 9.47 6.919 5.58Z" stroke-width="1"></path>
+											</svg>
+										</q-icon>
+										<div class="text-center q-ml-sm shake">{{ $page.props.auth.user.name }}</div>
+									</div>
+								</q-btn>
+							</div>
+						</q-toolbar>
 	  			</div>
 	  			<div class="bg-white">
-					<q-toolbar class="text-mutan q-pa-none common-layout-max-width row justify-between items-center">
-						<div class="col-3 row">
+						<q-toolbar class="text-mutan q-pa-none common-layout-max-width row justify-between items-center">
+							<div class="col-3 row">
 		  					<Link href="/" class="col-7">
 		  						<q-img :src="logo" style="height: 50px; width: 150px" />
 		  					</Link>
 		  					<q-btn flat square class="bg-bluies col-5" @click="catalogDialog = !catalogDialog">
 		  						<div class="row justify-evenly items-center no-wrap full-width">
-									<q-icon>
-										<svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" viewBox="-0.5 -0.5 24 24" id="File-Tray-Full-Sharp--Streamline-Ionic-Sharp" height="24" width="24">
-											<desc>File Tray Full Sharp Streamline Icon: https://streamlinehq.com</desc>
-			  								<path d="M17.94 5.0600000000000005H5.0600000000000005v1.9118750000000002h12.88v-1.9118750000000002Z" stroke-width="1"></path>
-			  								<path d="M18.745 8.280000000000001H4.255000000000001v1.9118750000000002h14.49v-1.9118750000000002Z" stroke-width="1"></path>
-			  								<path d="M21.16 1.84H1.84L0.23 11.5v9.66h22.54V11.5L21.16 1.84ZM20.55625 11.5H14.72c0 0.85401875 -0.33929791666666664 1.6730104166666666 -0.9430958333333334 2.2769041666666667C13.173010416666667 14.380702083333334 12.35401875 14.72 11.5 14.72s-1.6730583333333333 -0.33929791666666664 -2.2769041666666667 -0.9430958333333334C8.619297916666667 13.173010416666667 8.280000000000001 12.35401875 8.280000000000001 11.5H2.44375L3.550625 3.953125h15.89875L20.55625 11.5Z" stroke-width="1"></path>
-										</svg>
-									</q-icon>
+										<q-icon>
+											<svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" viewBox="-0.5 -0.5 24 24" id="File-Tray-Full-Sharp--Streamline-Ionic-Sharp" height="24" width="24">
+												<desc>File Tray Full Sharp Streamline Icon: https://streamlinehq.com</desc>
+													<path d="M17.94 5.0600000000000005H5.0600000000000005v1.9118750000000002h12.88v-1.9118750000000002Z" stroke-width="1"></path>
+													<path d="M18.745 8.280000000000001H4.255000000000001v1.9118750000000002h14.49v-1.9118750000000002Z" stroke-width="1"></path>
+													<path d="M21.16 1.84H1.84L0.23 11.5v9.66h22.54V11.5L21.16 1.84ZM20.55625 11.5H14.72c0 0.85401875 -0.33929791666666664 1.6730104166666666 -0.9430958333333334 2.2769041666666667C13.173010416666667 14.380702083333334 12.35401875 14.72 11.5 14.72s-1.6730583333333333 -0.33929791666666664 -2.2769041666666667 -0.9430958333333334C8.619297916666667 13.173010416666667 8.280000000000001 12.35401875 8.280000000000001 11.5H2.44375L3.550625 3.953125h15.89875L20.55625 11.5Z" stroke-width="1"></path>
+											</svg>
+										</q-icon>
 									<div class="text-center q-ml-sm">Каталог</div>
 		  						</div>
 		  					</q-btn>

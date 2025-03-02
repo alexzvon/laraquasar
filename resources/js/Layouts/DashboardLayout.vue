@@ -80,7 +80,7 @@
         <slot name="select" />
         <q-space />
           <q-tabs align="left">
-            <Link :href="route('index')">В Магазине</Link>
+            <q-btn :href="route('index')" label="В Магазине" flat />
             <q-route-tab to="/page2" label="Page Two" />
             <q-route-tab to="/page3" label="Page Three" />
           </q-tabs>
@@ -300,61 +300,32 @@
               </q-item>
 
             </q-expansion-item>
+            <q-separator class="q-my-md"/>
+          </q-list>
+        </q-scroll-area>
+      </q-drawer>
+      <q-drawer v-model="rightDrawerOpen" side="right" overlay bordered>
+        <p>{{  $page.props.auth }}</p>
+      </q-drawer>
 
-                    <!--
-                    <q-item
-                        dense
-                        clickable
-                        v-ripple
-                        @click="router.visit(route('dashboard.chapter.show', { chapter: 0 }), { method: 'get'})"
-                        :active="route('dashboard.chapter.show', { chapter: catalog_id }) == location"
-                        active-class="text-gries bg-mutan"
-                        >
-                        <q-item-section avatar>
-						    <q-icon size="sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" viewBox="-0.5 -0.5 16 16" id="Book-1--Streamline-Plump" height="16" width="16">
-                                    <desc>Book 1 Streamline Icon: https://streamlinehq.com</desc>
-                                    <g id="book-1--content-books-book-close">
-                                        <path id="Rectangle 1096" stroke-linecap="round" stroke-linejoin="round" d="M11.827468750000001 13.90490625c0.7971875 -0.0681875 1.3989375000000002 -0.686625 1.45759375 -1.4845625C13.35925 11.4115625 13.4375 9.80178125 13.4375 7.5s-0.07825 -3.9115624999999996 -0.1524375 -4.9203375c-0.05865625 -0.797946875 -0.6603749999999999 -1.416375 -1.45759375 -1.4845687499999998C10.909031250000002 1.016521875 9.490499999999999 0.9375 7.5 0.9375c-1.9904687500000002 0 -3.409 0.07901875 -4.3274687499999995 0.157590625 -0.7971937499999999 0.06819375 -1.39891875 0.6866218749999999 -1.4575906250000001 1.4845687499999998C1.640765625 3.5884375000000004 1.5625 5.19821875 1.5625 7.5c0 2.3017812500000003 0.0782625 3.9115624999999996 0.152434375 4.920343750000001 0.058671875 0.7979375 0.6604 1.416375 1.4575968750000001 1.4845625C4.091 13.98346875 5.509500000000001 14.0625 7.5 14.0625c1.9905 0 3.409 -0.07903125 4.3274687499999995 -0.15759374999999998Z" stroke-width="1"></path>
-                                        <path id="Intersect" stroke-linecap="round" stroke-linejoin="round" d="M4.375 1.01303125v12.9738125" stroke-width="1"></path>
-                                        <path id="Vector 1022" stroke-linecap="round" stroke-linejoin="round" d="M6.875 3.75h3.75" stroke-width="1"></path>
-                                        <path id="Vector 1023" stroke-linecap="round" stroke-linejoin="round" d="M6.875 5.9375h1.875" stroke-width="1"></path>
-                                    </g>
-                                </svg>
-                            </q-icon>
-                        </q-item-section>
-                        <q-item-section>
-                            Отдел
-                        </q-item-section>
-                    </q-item>
-                    -->
+      <q-page-container>
+        <slot />
+        <q-inner-loading :showing="router.processing">
+          <q-spinner-gears size="50px" color="gries" />
+        </q-inner-loading>
+      </q-page-container>
 
-              <q-separator class="q-my-md"/>
-            </q-list>
-          </q-scroll-area>
-        </q-drawer>
-        <q-drawer v-model="rightDrawerOpen" side="right" overlay bordered>
-          <p>{{  $page.props.auth }}</p>
-        </q-drawer>
-
-        <q-page-container>
-          <slot />
-          <q-inner-loading :showing="router.processing">
-            <q-spinner-gears size="50px" color="gries" />
-          </q-inner-loading>
-        </q-page-container>
-
-        <q-footer elevated class="bg-grey-8 text-white">
-          <q-toolbar>
-            <q-toolbar-title>
-              <q-avatar>
-                <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-              </q-avatar>
-              <div>Title</div>
-              <slot name="footer" />
-            </q-toolbar-title>
-          </q-toolbar>
-        </q-footer>
+      <q-footer elevated class="bg-grey-8 text-white">
+        <q-toolbar>
+          <q-toolbar-title>
+            <q-avatar>
+              <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+            </q-avatar>
+            <div>Title</div>
+            <slot name="footer" />
+          </q-toolbar-title>
+        </q-toolbar>
+      </q-footer>
     </q-layout>
 </template>
 
