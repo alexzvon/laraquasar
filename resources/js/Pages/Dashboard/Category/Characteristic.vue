@@ -8,15 +8,17 @@
 
   const props = defineProps({
     characteristics: Array,
-    characteristic: Object,
+    category_characteristic: Array,
   })
 
-  // console.log(props.characteristics)
-  // console.log(props.characteristic)
+  console.log(props.characteristics)
+  console.log(props.category_characteristic)
 
   const tree = ref()
   const widthSplitter = ref(30)
   const selected = ref(null)
+  const selectedTable = ref(null)
+  const filter = ref(null)
 
   const form = useForm({
     id: 0,
@@ -26,6 +28,57 @@
     category_id: null,
     _method: 'POST'
   })
+
+  const columns = [
+        {
+            label: 'Id',
+            name: 'id',
+            field: 'id',
+            align: 'center',
+            headerStyle: 'font-weight: 505; font-size: 12px;',
+            sortable: true,
+        },
+        {
+            label: 'Наименование',
+            name: 'title',
+            field: 'title',
+            align: 'center',
+            headerStyle: 'font-weight: 505; font-size: 12px;',
+            sortable: true,
+        },
+        // {
+        //     label: 'Почта',
+        //     name: 'email',
+        //     field: 'email',
+        //     align: 'center',
+        //     headerStyle: 'font-weight: 505; font-size: 12px;',
+        //     sortable: true,
+        // },
+        // {
+        //     label: 'Проверка',
+        //     name: 'email_verified_at',
+        //     field: 'email_verified_at',
+        //     align: 'center',
+        //     headerStyle: 'font-weight: 505; font-size: 12px;',
+        //     sortable: true,
+        // },
+        // {
+        //     label: 'Создан',
+        //     name: 'createdAt',
+        //     field: 'created_at',
+        //     align: 'center',
+        //     headerStyle: 'font-weight: 505; font-size: 12px;',
+        //     sortable: true,
+        // },
+        // {
+        //     label: 'Изменен',
+        //     name: 'updateAt',
+        //     field: 'updated_at',
+        //     align: 'center',
+        //     headerStyle: 'font-weight: 505; font-size: 12px;',
+        //     sortable: true,
+        // },
+    ]
 
   const onSetNodeToForm = (node) => {
     if (isProxy(node)) {
@@ -48,6 +101,12 @@
     selected.value = null
   }
 
+  // const onSelectRows = () => {
+  //   for (let i = 0; i < props.category_characteristic.length; i++) {
+  //     for (let j = 0; j < props.)
+  //   }
+  // }
+
   const onNodeSelected = (nodeId) => {
     onSetNodeToForm(tree.value.getNodeByKey(nodeId))
   }
@@ -63,6 +122,8 @@
     } else {
       onResetForm()
     }
+
+
   })
 
   onUpdated(() => {
@@ -78,19 +139,45 @@
     }
   })
 
+  const emit = defineEmits(['proba'])
+
   const onSave = () => {
-    form._method = 'PUT'
-    form.post(route('dashboard.category.characteristic.update'),{
-      onSuccess: () => {
-        console.log('onSuccess')
+
+    console.log(props.proba)
+
+    props.proba('probaprobaproba')
+
+    emit('proba', 'emitemitemit')
+
+
+    // form._method = 'PUT'
+    // form.post(route('dashboard.category.characteristic.update'),{
+    //   onSuccess: () => {
+    //     console.log('onSuccess')
         
-        console.log(props.characteristics)
-        console.log(props.characteristic)
+    //     console.log(props.characteristics)
+    //     console.log(props.characteristic)
 
-        onNodeSelected(props.characteristic)
-      }
-    })
+    //     onNodeSelected(props.characteristic)
+    //   }
+    // })
 
+  }
+
+  const onAppend = () => {
+    console.log(selected.value)
+  }
+
+  const onEdit = () => {
+    console.log('onEdit')
+  }
+  
+  const onDestroy = () => {
+    console.log('onDestroy')
+  }
+
+  const onProba = () => {
+    console.log('onPropba')
   }
   
 </script>
@@ -113,7 +200,38 @@
       />
     </template>
     <template v-slot:after>
-      <q-list>
+      <q-table
+        flat
+        dense
+        ref="tableRef"
+        :rows="category_characteristic"
+        :columns="columns"
+        row-key="id"
+        rows-per-page-label="Записей на странице"
+        selection="single"
+        :filter="filter"
+        v-model:selected="selectedTable"
+        class="text-gries bg-mutan"
+        >
+            <template v-slot:top-right>
+                <q-input borderless dense debounce="300" v-model="filter" placeholder="Поиск">
+                    <template v-slot:append>
+                        <q-icon name="fa-solid fa-magnifying-glass" />
+                    </template>
+                </q-input>
+            </template>
+            <template v-slot:top-left>
+                <q-btn flat no-caps label="Добавить" @click.stop.prevent="onAppend" />
+                <q-btn flat no-caps label="Изменить" @click.stop.prevent="onEdit"/>
+                <q-btn flat no-caps color="dbrem" label="Удалить" @click.stop.prevent="onDestroy" />
+                <q-btn flat no-caps label="Проба" @click.stop.prevent="onProba" />
+            </template>
+        </q-table>
+
+      {{ selected }}
+
+
+      <!-- <q-list>
         <q-item>
           <q-item-section>
             <q-input
@@ -165,7 +283,11 @@
             <q-btn label="Удалить" flat no-caps/>
           </q-item-section>
         </q-item>
-      </q-list>
+      </q-list> -->
+
+
+
+
     </template>
   </q-splitter>
 </template>

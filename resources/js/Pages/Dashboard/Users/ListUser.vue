@@ -8,7 +8,7 @@
         name: 'ListUser',
     })
 
-    defineProps({
+    const props = defineProps({
         rows: Array
     })
 
@@ -101,6 +101,20 @@
 
         router.visit(route('dashboard.users.destroy', { user: selectObj[0].id }), { method: 'delete'})
     }
+
+    const onProba = () => {
+        let id = 31
+
+        console.log(props.rows)
+        console.log(props.rows.length)
+        console.log(props.rows[30])
+
+        for (let i = 0; i < props.rows.length; i++) {
+            if (props.rows[i].id == id) {
+                selected.value = [ props.rows[i] ]        
+            }
+        }
+    }
 </script>
 
 <template>
@@ -131,6 +145,7 @@
                 <q-btn flat no-caps label="Создать" @click.stop.prevent="onCreate" />
                 <q-btn flat no-caps label="Изменить" @click.stop.prevent="onEdit"/>
                 <q-btn flat no-caps color="dbrem" label="Удалить" @click.stop.prevent="onDestroy" />
+                <q-btn flat no-caps label="Проба" @click.stop.prevent="onProba" />
             </template>
         </q-table>
     </dashboard-layout>

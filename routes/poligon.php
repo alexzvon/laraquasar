@@ -103,16 +103,15 @@ Route::middleware('auth')->group(function () {
         // Route::post('category/proba/{category}/{characteristic}', [CategoryController::class, 'proba'])->name('category.proba');
 
         Route::prefix('category')->name('category.')->group(function () {
+            // Route::get('{category_id}/{characteristic_id}', [CategoryController::class, 'index'])->name('index');
+
             Route::get('{category_id}/{characteristic_id}', [CategoryController::class, 'index'])->name('index');
             Route::put('{category}', [CategoryController::class, 'update'])->name('update');
             Route::post('append/{category}', [CategoryController::class, 'append'])->name('append');
             Route::post('create/{category}', [CategoryController::class, 'create'])->name('create');
             Route::delete('{id}', [CategoryController::class, 'destroy'])->name('destroy');
-    
-
 
             Route::post('proba/{category}/{characteristic}', [CategoryController::class, 'proba'])->name('proba');
-
 
             // Route::prefix('characteristic')->name('characteristic.')->group(function () {
             //     Route::put('update', [ CharacteristicController::class, 'update' ])->name('update');
@@ -120,8 +119,6 @@ Route::middleware('auth')->group(function () {
             //     //     dd('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
             //     // })->name('update');
             // });
-
-
         });
 
         Route::prefix('characteristic')->name('characteristic.')->group(function() {
@@ -130,6 +127,8 @@ Route::middleware('auth')->group(function () {
             // Route::post('append/{characteristic_id}', [ CharacteristicController::class, 'append' ])->name('append');
             Route::post('create', [ CharacteristicController::class, 'create' ])->name('create');
             Route::delete('{characteristic_id}', [ CharacteristicController::class, 'destroy' ])->name('destroy');
+
+            Route::post('append/{characteristic_id}', [ CharacteristicController::class, 'append' ])->name('append');
         });
 
 

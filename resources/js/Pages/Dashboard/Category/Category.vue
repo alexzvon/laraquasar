@@ -45,10 +45,10 @@
   const onNodeSelected = (nodeId) => {
     router.visit(
       route('dashboard.category.index', 
-        { category_id: nodeId ?? 1, characteristic_id: props.characteristic == null ? 0 : props.characteristic.id }), 
+        { category_id: nodeId ?? 1 }), 
           {
             method: 'get', 
-            only: [ ' errors', 'category', 'characteristics', 'characteristic' ],
+            only: [ ' errors', 'ziggy', 'category', 'characteristics', 'characteristic' ],
             preserveState: true,
             preserveScroll: true,
             onSuccess: () => onReset()
@@ -138,11 +138,16 @@
 
   onReset()
 
-  const onProba = () => {
-    console.log('start proba')
+  const onProba = (p) => {
 
 
-  selected.value = 1122
+
+  console.log('start proba')
+  console.log(p)
+  console.log(idImage)
+
+
+  // selected.value = 1122
 
   // tree.value.setExpanded(selected.value, true)
   // tree.value.setSelectedNode(selected.value)
@@ -156,7 +161,7 @@
     // form.post(urlProba.value, { only: [ ' errors' ]})
 
 
-  form.post(route('dashboard.category.proba', { 'category': 7, 'characteristic': 55 }))
+  // form.post(route('dashboard.category.proba', { 'category': 7, 'characteristic': 55 }))
 
     // form.post(urlProba.value, {
     //   onSuccess: () => {
@@ -177,12 +182,13 @@
 <template>
   <dashboard-layout>
     <q-input 
+      filled
+      dense
       v-model="filterTree" 
-      label="Фильтр" 
+      label="Категория" 
       label-color="gries"
       color="gries"
       style="height: 40px;"
-      dense
     >
       <template v-slot:append>
         <q-icon v-if="filterTree != ''" name="fa-solid fa-xmark" @click="filterTree = ''" class="cursor-pointer" />
@@ -207,6 +213,17 @@
           @update:selected="onNodeSelected"
           default-expand-all
         />
+      </template>
+      <template v-slot:separator>
+        <q-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none"  viewBox="0 0 16 16" id="Line-Vertical-Duotone--Streamline-Phosphor" height="16" width="16">
+            <desc>Line Vertical Duotone Streamline Icon: https://streamlinehq.com</desc>
+            <g id="line-vertical-duotone">
+              <path id="Vector" fill="#c4c4c3" d="M14 3v10c0 0.2651875 -0.105375 0.5195625 -0.292875 0.707125 -0.1875625 0.1875 -0.4419375 0.292875 -0.707125 0.292875H3c-0.26521875 0 -0.51956875 -0.105375 -0.70710625 -0.292875C2.10535625 13.5195625 2 13.2651875 2 13V3c0 -0.26521875 0.10535625 -0.51956875 0.29289375 -0.70710625C2.48043125 2.10535625 2.73478125 2 3 2h10c0.2651875 0 0.5195625 0.10535625 0.707125 0.29289375C13.894625 2.48043125 14 2.73478125 14 3Z" stroke-width="0.0625"></path>
+              <path id="Vector_2" fill="#000000" d="M8.5 1.5v13c0 0.132625 -0.0526875 0.2598125 -0.1464375 0.3535625S8.132625 15 8 15s-0.2598125 -0.0526875 -0.3535625 -0.1464375S7.5 14.632625 7.5 14.5V1.5c0 -0.13260625 0.0526875 -0.2597875 0.1464375 -0.35355625C7.7401875 1.05268125 7.867375 1 8 1s0.2598125 0.05268125 0.3535625 0.14644375C8.4473125 1.2402125 8.5 1.36739375 8.5 1.5Z" stroke-width="0.0625"></path>
+            </g>
+          </svg>
+        </q-icon>
       </template>
       <template v-slot:after>
           <q-card flat class="slide-card full-height">
@@ -369,7 +386,8 @@
             <!-- <q-separator dark inset /> -->
             <q-separator />
             <q-card-section class="q-py-none">
-              <characteristic :characteristics="characteristics" :characteristic="characteristic" />
+              <!-- <characteristic :characteristics="characteristics" :characteristic="characteristic" /> -->
+              <characteristic :characteristics="characteristics" :category_characteristic="[]"/>
               <!-- {{ simple }} -->
             </q-card-section>
           </q-card>
