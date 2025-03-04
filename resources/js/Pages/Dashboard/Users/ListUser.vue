@@ -12,6 +12,10 @@
         rows: Array
     })
 
+
+    console.log(props.rows)
+
+
     const tableRef = ref()
     const selected = ref([])
     const initPaginate = ref({page: 1})

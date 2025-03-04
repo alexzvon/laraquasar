@@ -104,10 +104,14 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('category')->name('category.')->group(function () {
             // Route::get('{category_id}/{characteristic_id}', [CategoryController::class, 'index'])->name('index');
+            Route::get('{category_id}', [CategoryController::class, 'index'])->name('index');
 
-            Route::get('{category_id}/{characteristic_id}', [CategoryController::class, 'index'])->name('index');
+
             Route::put('{category}', [CategoryController::class, 'update'])->name('update');
             Route::post('append/{category}', [CategoryController::class, 'append'])->name('append');
+
+            Route::post('attach/{category_id}/{characteristic_id}', [CategoryController::class, 'attach'])->name('attach');
+
             Route::post('create/{category}', [CategoryController::class, 'create'])->name('create');
             Route::delete('{id}', [CategoryController::class, 'destroy'])->name('destroy');
 

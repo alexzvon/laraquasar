@@ -11,7 +11,7 @@ class IndexAction
     {
         return [
             'categories' => fn() => Category::getAll(),
-            'category' => fn() => $categoryId > 0 ? Category::find($categoryId) : null,
+            'category' => fn() => $categoryId > 0 ? $this->getCategory($categoryId) : null,
             'characteristics' => fn() => $this->getCharacteristics(),
                 // $categoryId > 0 ? 
                 //     Category::find($categoryId)
@@ -34,7 +34,7 @@ class IndexAction
         ];
     }
 
-    public function getCharacteristics(): array
+    protected function getCharacteristics(): array
     {
         return Characteristic::with('children')
             ->orderBy('sort')
@@ -43,5 +43,10 @@ class IndexAction
             ->makeHidden([ 'created_at', 'updated_at'])
             ->toTree()
             ->toArray();
+    }
+
+    protected function getCategory(int $categoryId)
+    {
+        return Category::with(['characteristics'])->find($categoryId);
     }
 }

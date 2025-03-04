@@ -8,16 +8,38 @@
 
   const props = defineProps({
     characteristics: Array,
-    category_characteristic: Array,
+    category: Object,
   })
 
-  console.log(props.characteristics)
-  console.log(props.category_characteristic)
+  // console.log(props.characteristics)
+  console.log(props.category)
+  console.log(props.category.characteristics)
+
+  const ccc = [
+    {
+      id: 1,
+      title: 'title_1',
+    },
+    {
+      id: 2,
+      title: 'title_2',
+    },
+    {
+      id: 3,
+      title: 'title_3',
+    },
+    {
+      id: 4,
+      title: 'title_4',
+    },
+  ]
+
+  console.log(ccc)
 
   const tree = ref()
   const widthSplitter = ref(30)
   const selected = ref(null)
-  const selectedTable = ref(null)
+  const selectedTable = ref([])
   const filter = ref(null)
 
   const form = useForm({
@@ -139,7 +161,7 @@
     }
   })
 
-  const emit = defineEmits(['proba'])
+  const emit = defineEmits(['attach'])
 
   const onSave = () => {
 
@@ -165,6 +187,7 @@
   }
 
   const onAppend = () => {
+    emit('attach', selected.value)
     console.log(selected.value)
   }
 
@@ -204,7 +227,7 @@
         flat
         dense
         ref="tableRef"
-        :rows="category_characteristic"
+        :rows="category.characteristics"
         :columns="columns"
         row-key="id"
         rows-per-page-label="Записей на странице"
@@ -212,21 +235,21 @@
         :filter="filter"
         v-model:selected="selectedTable"
         class="text-gries bg-mutan"
-        >
-            <template v-slot:top-right>
-                <q-input borderless dense debounce="300" v-model="filter" placeholder="Поиск">
-                    <template v-slot:append>
-                        <q-icon name="fa-solid fa-magnifying-glass" />
-                    </template>
-                </q-input>
+      >
+        <template v-slot:top-right>
+          <q-input borderless dense debounce="300" v-model="filter" placeholder="Поиск">
+            <template v-slot:append>
+              <q-icon name="fa-solid fa-magnifying-glass" />
             </template>
-            <template v-slot:top-left>
-                <q-btn flat no-caps label="Добавить" @click.stop.prevent="onAppend" />
-                <q-btn flat no-caps label="Изменить" @click.stop.prevent="onEdit"/>
-                <q-btn flat no-caps color="dbrem" label="Удалить" @click.stop.prevent="onDestroy" />
-                <q-btn flat no-caps label="Проба" @click.stop.prevent="onProba" />
-            </template>
-        </q-table>
+          </q-input>
+        </template>
+        <template v-slot:top-left>
+          <q-btn flat no-caps :disable="!selected" label="Добавить" @click.stop.prevent="onAppend" /> 
+          <q-btn flat no-caps label="Изменить" @click.stop.prevent="onEdit"/>
+          <q-btn flat no-caps color="dbrem" label="Удалить" @click.stop.prevent="onDestroy" />
+          <q-btn flat no-caps label="Проба" @click.stop.prevent="onProba" />
+        </template>
+      </q-table>
 
       {{ selected }}
 
