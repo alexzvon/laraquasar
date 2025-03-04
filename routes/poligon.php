@@ -111,6 +111,7 @@ Route::middleware('auth')->group(function () {
             Route::post('append/{category}', [CategoryController::class, 'append'])->name('append');
 
             Route::post('attach/{category_id}/{characteristic_id}', [CategoryController::class, 'attach'])->name('attach');
+            Route::post('detach/{category_id}/{characteristic_id}', [CategoryController::class, 'detach'])->name('detach');
 
             Route::post('create/{category}', [CategoryController::class, 'create'])->name('create');
             Route::delete('{id}', [CategoryController::class, 'destroy'])->name('destroy');

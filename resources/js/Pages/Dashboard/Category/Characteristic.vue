@@ -161,7 +161,7 @@
     }
   })
 
-  const emit = defineEmits(['attach'])
+  const emit = defineEmits([ 'attach', 'detach' ])
 
   const onSave = () => {
 
@@ -188,7 +188,10 @@
 
   const onAppend = () => {
     emit('attach', selected.value)
-    console.log(selected.value)
+  }
+
+  const onDelete = () => {
+    emit('detach', selected.value)
   }
 
   const onEdit = () => {
@@ -245,9 +248,9 @@
         </template>
         <template v-slot:top-left>
           <q-btn flat no-caps :disable="!selected" label="Добавить" @click.stop.prevent="onAppend" /> 
-          <q-btn flat no-caps label="Изменить" @click.stop.prevent="onEdit"/>
-          <q-btn flat no-caps color="dbrem" label="Удалить" @click.stop.prevent="onDestroy" />
-          <q-btn flat no-caps label="Проба" @click.stop.prevent="onProba" />
+          <q-btn flat no-caps :disable="!selected" label="Удалить" @click.stop.prevent="onDelete"/>
+          <!-- <q-btn flat no-caps color="dbrem" label="Удалить" @click.stop.prevent="onDestroy" />
+          <q-btn flat no-caps label="Проба" @click.stop.prevent="onProba" /> -->
         </template>
       </q-table>
 
