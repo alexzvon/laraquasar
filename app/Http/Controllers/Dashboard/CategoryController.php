@@ -7,6 +7,7 @@ use App\Actions\Dashboard\Category\CreateAction;
 use App\Actions\Dashboard\Category\DestroyAction;
 use App\Actions\Dashboard\Category\IndexAction;
 use App\Actions\Dashboard\Category\UpdateAction;
+use App\Actions\Dashboard\Category\AttachAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Category\CreateRequest;
 use App\Http\Requests\Dashboard\Category\UpdateRequest;
@@ -19,7 +20,6 @@ use Inertia\Response;
 
 class CategoryController extends Controller
 {
-    // public function index(int $category_id, int $characteristic_id, IndexAction $action): Response
     public function index(int $category_id, IndexAction $action): Response
     {
         return Inertia::render('Dashboard/Category/Category', $action($category_id));
@@ -28,6 +28,11 @@ class CategoryController extends Controller
     public function append(Category $category, CreateRequest $request, AppendAction $action): RedirectResponse
     {
         return redirect()->intended(route('dashboard.category.index', $action($category, $request)));
+    }
+
+    public function attach(int $category_id, int $characteristic_id, AttachAction $action): RedirectResponse
+    {
+        return redirect()->intended(route('dashboard.category.index', $action($category_id, $characteristic_id)));
     }
 
     public function create(Category $category, CreateRequest $request, CreateAction $action): RedirectResponse
