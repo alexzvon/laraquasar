@@ -128,26 +128,28 @@
   }
 
   const onAttach = (characteristic_id) => {
-    // if (form.id > 1) {
-    //   form._method = 'PUT'
-    //   form.post(route('dashboard.category.attach', { category_id: props.category.id, characteristic_id: characteristic_id }))
-    // }
-
-
-    console.log(props.category.id)
-    console.log(characteristic_id)
-
-
     router.visit(
-      route('dashboard.category.attach', 
-        { category_id: props.category.id, characteristic_id: characteristic_id }),
-        {
-          method: 'post',
-            only: [ ' errors', 'ziggy', 'category', 'characteristics', 'characteristic' ],
-            preserveState: true,
-            preserveScroll: true,
-            onSuccess: () => onReset()
-        }
+      route('dashboard.category.attach', { category_id: props.category.id, characteristic_id: characteristic_id }),
+      {
+        method: 'post',
+          only: [ ' errors', 'ziggy', 'category', 'characteristics', 'characteristic' ],
+          preserveState: true,
+          preserveScroll: true,
+          onSuccess: () => onReset()
+      }
+    )
+  }
+
+  const onDetach = (characteristic_id) => {
+    router.visit(
+      route('dashboard.category.detach', { category_id: props.category.id, characteristic_id: characteristic_id }),
+      {
+        method: 'post',
+          only: [ ' errors', 'ziggy', 'category', 'characteristics', 'characteristic' ],
+          preserveState: true,
+          preserveScroll: true,
+          onSuccess: () => onReset()
+      }
     )
   }
 
@@ -411,7 +413,7 @@
             <q-separator />
             <q-card-section class="q-py-none">
               <!-- <characteristic :characteristics="characteristics" :characteristic="characteristic" /> -->
-              <characteristic :characteristics="characteristics" :category="category" @attach="onAttach"/>
+              <characteristic :characteristics="characteristics" :category="category" @attach="onAttach" @detach="onDetach"/>
               <!-- <characteristic :characteristics="characteristics" :category="category" /> -->
               <!-- {{ simple }} -->
             </q-card-section>

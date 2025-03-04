@@ -8,6 +8,7 @@ use App\Actions\Dashboard\Category\DestroyAction;
 use App\Actions\Dashboard\Category\IndexAction;
 use App\Actions\Dashboard\Category\UpdateAction;
 use App\Actions\Dashboard\Category\AttachAction;
+use App\Actions\Dashboard\Category\DetachAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Category\CreateRequest;
 use App\Http\Requests\Dashboard\Category\UpdateRequest;
@@ -31,6 +32,11 @@ class CategoryController extends Controller
     }
 
     public function attach(int $category_id, int $characteristic_id, AttachAction $action): RedirectResponse
+    {
+        return redirect()->intended(route('dashboard.category.index', $action($category_id, $characteristic_id)));
+    }
+
+    public function detach(int $category_id, int $characteristic_id, DetachAction $action): RedirectResponse
     {
         return redirect()->intended(route('dashboard.category.index', $action($category_id, $characteristic_id)));
     }
