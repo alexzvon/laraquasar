@@ -45,11 +45,6 @@ class CharacteristicController extends Controller
         return redirect()->intended(route('dashboard.characteristic.index', $action($request)));
     }
 
-    // public function append(int $characteristic_id, Request $request, UpdateAction $action): RedirectResponse
-    // {
-    //     return redirect()->intended(route('dashboard.characteristic.index', $action($request)));
-    // }
-
     public function create(CreateRequest $request, CreateAction $action): RedirectResponse
     {
         return redirect()->intended(route('dashboard.characteristic.index', $action($request)));

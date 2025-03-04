@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\TypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Kalnoy\Nestedset\NodeTrait;
 
 class Characteristic extends Model
@@ -39,4 +40,9 @@ class Characteristic extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }

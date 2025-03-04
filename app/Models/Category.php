@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -17,17 +18,10 @@ class Category extends Model    // implements HasMedia
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory, NodeTrait;     // , InteractsWithMedia;
 
-    const CACHE_ALL = 'allCategory';
-    // const CACHE_TREE = 'treeCategory';
+    private const CACHE_ALL = 'allCategory';
 
-    /**
-     * @var string
-     */
     protected $table = 'categories';
 
-    /**
-     * @var array<string>
-     */
     protected $fillable = [
         'parent_id',
         'sort',
@@ -57,14 +51,14 @@ class Category extends Model    // implements HasMedia
         parent::boot();
 
         static::creating(function (Category $category) {
-            $category->slug = $category->slug ?? Str::slug($category->title);
+            $category->slug ??= Str::slug($category->title);
         });
     }
 
-    // public function characteristics(): HasMany
-    // {
-    //     return $this->hasMany(Characteristic::class);
-    // }
+    public function characteristics(): BelongsToMany
+    {
+        return $this->belongsToMany(Characteristic::class);
+    }
 
     public static function getAll(): array
     {

@@ -19,9 +19,10 @@ use Inertia\Response;
 
 class CategoryController extends Controller
 {
-    public function index(int $category_id, int $characteristic_id, IndexAction $action): Response
+    // public function index(int $category_id, int $characteristic_id, IndexAction $action): Response
+    public function index(int $category_id, IndexAction $action): Response
     {
-        return Inertia::render('Dashboard/Category/Category', $action($category_id, $characteristic_id));
+        return Inertia::render('Dashboard/Category/Category', $action($category_id));
     }
 
     public function append(Category $category, CreateRequest $request, AppendAction $action): RedirectResponse
