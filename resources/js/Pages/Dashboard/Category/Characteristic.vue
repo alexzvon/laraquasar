@@ -1,5 +1,5 @@
 <script setup>
-  import { useForm } from '@inertiajs/vue3'
+  import { useForm, router } from '@inertiajs/vue3'
   import { ref, onMounted, onUpdated, isProxy } from 'vue'
 
   defineOptions({
@@ -12,29 +12,29 @@
   })
 
   // console.log(props.characteristics)
-  console.log(props.category)
-  console.log(props.category.characteristics)
+  // console.log(props.category)
+  // console.log(props.category.characteristics)
 
-  const ccc = [
-    {
-      id: 1,
-      title: 'title_1',
-    },
-    {
-      id: 2,
-      title: 'title_2',
-    },
-    {
-      id: 3,
-      title: 'title_3',
-    },
-    {
-      id: 4,
-      title: 'title_4',
-    },
-  ]
+  // const ccc = [
+  //   {
+  //     id: 1,
+  //     title: 'title_1',
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'title_2',
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'title_3',
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'title_4',
+  //   },
+  // ]
 
-  console.log(ccc)
+  // console.log(ccc)
 
   const tree = ref()
   const widthSplitter = ref(30)
@@ -191,13 +191,14 @@
   }
 
   const onDelete = () => {
-    emit('detach', selected.value)
+    emit('detach', selectedTable.value[0].id)
+    selectedTable.value = []
   }
 
-  const onEdit = () => {
-    console.log('onEdit')
+  const onDblClick = (evt, row, index) => {
+    router.get(route('dashboard.characteristic.index', { 'characteristic_id': row.id }))
   }
-  
+ 
   const onDestroy = () => {
     console.log('onDestroy')
   }
@@ -237,6 +238,7 @@
         selection="single"
         :filter="filter"
         v-model:selected="selectedTable"
+        @row-dblclick="onDblClick"
         class="text-gries bg-mutan"
       >
         <template v-slot:top-right>
@@ -248,13 +250,13 @@
         </template>
         <template v-slot:top-left>
           <q-btn flat no-caps :disable="!selected" label="Добавить" @click.stop.prevent="onAppend" /> 
-          <q-btn flat no-caps :disable="!selected" label="Удалить" @click.stop.prevent="onDelete"/>
+          <q-btn flat no-caps :disable="!selectedTable.length" label="Удалить" @click.stop.prevent="onDelete"/>
           <!-- <q-btn flat no-caps color="dbrem" label="Удалить" @click.stop.prevent="onDestroy" />
           <q-btn flat no-caps label="Проба" @click.stop.prevent="onProba" /> -->
         </template>
       </q-table>
 
-      {{ selected }}
+      <!-- {{ selectedTable }} -->
 
 
       <!-- <q-list>

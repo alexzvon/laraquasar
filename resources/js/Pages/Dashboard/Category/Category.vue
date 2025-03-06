@@ -4,12 +4,6 @@
   import { useForm, router } from '@inertiajs/vue3'
   import { onUpdated, ref, toRaw } from 'vue'
 
-  // import { useQuasar } from 'quasar'
-  // import * as $q from "quasar";
-
-  // const $q = useQuasar()
-  // import { api } from '../../../axios'
-
   defineOptions({
     name: 'Category'
   })
@@ -18,7 +12,7 @@
     categories: Array,
     category: Object,
     characteristics: Array,
-    characteristic: Object,
+    // characteristic: Object,
   })
 
   // console.log(props.categories)
@@ -409,13 +403,9 @@
                   </q-item>
               </q-list>
             </q-card-section>
-            <!-- <q-separator dark inset /> -->
             <q-separator />
             <q-card-section class="q-py-none">
-              <!-- <characteristic :characteristics="characteristics" :characteristic="characteristic" /> -->
-              <characteristic :characteristics="characteristics" :category="category" @attach="onAttach" @detach="onDetach"/>
-              <!-- <characteristic :characteristics="characteristics" :category="category" /> -->
-              <!-- {{ simple }} -->
+              <!-- <characteristic :characteristics="characteristics" :category="category" @attach="onAttach" @detach="onDetach"/> -->
             </q-card-section>
           </q-card>
       </template>
