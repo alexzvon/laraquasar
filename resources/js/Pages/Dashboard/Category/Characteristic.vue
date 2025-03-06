@@ -33,21 +33,33 @@
 
   const columns = [
         {
-            label: 'Id',
-            name: 'id',
-            field: 'id',
-            align: 'center',
-            headerStyle: 'font-weight: 505; font-size: 12px;',
-            sortable: true,
+          label: 'Id',
+          name: 'id',
+          field: 'id',
+          align: 'center',
+          headerStyle: 'font-weight: 505; font-size: 12px;',
+          sortable: true,
         },
         {
-            label: 'Наименование',
-            name: 'title',
-            field: 'title',
-            align: 'center',
-            headerStyle: 'font-weight: 505; font-size: 12px;',
-            sortable: true,
+          label: 'Наименование',
+          name: 'title',
+          field: 'title',
+          align: 'center',
+          headerStyle: 'font-weight: 505; font-size: 12px;',
+          sortable: true,
         },
+        {
+          label: 'Фильтр',
+          name: 'smart',
+          field: 'smart',
+          align: 'center',
+          format: val => val ? '☑' : '☐',
+          headerStyle: 'font-weight: 505; font-size: 12px;',
+          sortable: true,
+        },
+
+
+
         // {
         //     label: 'Почта',
         //     name: 'email',
