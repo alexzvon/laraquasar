@@ -405,7 +405,8 @@
             </q-card-section>
             <q-separator />
             <q-card-section class="q-py-none">
-              <!-- <characteristic :characteristics="characteristics" :category="category" @attach="onAttach" @detach="onDetach"/> -->
+              <!-- <characteristic :characteristics="characteristics" :category="category" /> -->
+              <characteristic :characteristics="characteristics" :category="category" @attach="onAttach" @detach="onDetach"/>
             </q-card-section>
           </q-card>
       </template>
