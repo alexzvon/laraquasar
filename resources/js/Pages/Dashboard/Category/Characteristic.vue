@@ -15,27 +15,6 @@
   // console.log(props.category)
   // console.log(props.category.characteristics)
 
-  // const ccc = [
-  //   {
-  //     id: 1,
-  //     title: 'title_1',
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'title_2',
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'title_3',
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'title_4',
-  //   },
-  // ]
-
-  // console.log(ccc)
-
   const tree = ref()
   const widthSplitter = ref(30)
   const selected = ref(null)
@@ -256,7 +235,7 @@
         </template>
       </q-table>
 
-      <!-- {{ selectedTable }} -->
+      {{ selected }}
 
 
       <!-- <q-list>

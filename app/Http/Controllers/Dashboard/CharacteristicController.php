@@ -20,23 +20,6 @@ class CharacteristicController extends Controller
 {
     public function index(int $characteristic_id, IndexAction $action): Response
     {
-        // dd($action($characteristic_id)->resolve());
-        // dd($action($characteristic_id));
-
-        // $arr = $action($characteristic_id);
-
-        // dump($action($characteristic_id));
-
-        // dump($this->resolve($arr[ 'characterictics' ]));
-        // dump($this->resolve($arr[ 'characteristic' ]));
-        // dump($this->resolve($arr[ 'types' ]));
-
-        // dump($arr[ 'characterictics' ]());
-        // dump($arr[ 'characteristic' ]());
-        // dump($arr[ 'types' ]());
-
-        // dd('code');
-
         return Inertia::render('Dashboard/Characteristics/Index', $action($characteristic_id));
     }
 

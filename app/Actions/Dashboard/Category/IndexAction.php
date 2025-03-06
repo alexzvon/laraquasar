@@ -11,7 +11,7 @@ class IndexAction
     {
         return [
             'categories' => fn() => Category::getAll(),
-            'category' => fn() => $categoryId > 0 ? $this->getCategory($categoryId) : null,
+            'category' => fn() => $this->getCategory($categoryId),
             'characteristics' => fn() => $this->getCharacteristics(),
             // 'characteristic' => fn() => null,
         ];
@@ -30,6 +30,6 @@ class IndexAction
 
     protected function getCategory(int $categoryId)
     {
-        return Category::with(['characteristics'])->find($categoryId);
+        return Category::with(['characteristics'])->find($categoryId) ?? abort(404);
     }
 }
