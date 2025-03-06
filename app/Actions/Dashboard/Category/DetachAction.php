@@ -3,7 +3,7 @@
 namespace App\Actions\Dashboard\Category;
 
 use App\Models\Category;
-use App\Models\Characteristic;
+// use App\Models\Characteristic;
 
 class DetachAction
 {

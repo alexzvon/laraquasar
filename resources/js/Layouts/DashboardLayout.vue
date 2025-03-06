@@ -37,10 +37,9 @@
     }
 
     const onActiveCharacteristic = () => {
-      let characteristic_id = page.props.characteric == undefined ? 0: page.props.characteric.id
-    
-      return route('dashboard.characteristic.index', { 'characteristic_id': characteristic_id }) == location
-
+      return route('dashboard.characteristic.index', 
+        { 'characteristic_id': page.props.characteristic == undefined ? 0: page.props.characteristic.id }
+      ) == location
     }
 
     const visible = ref(false)
