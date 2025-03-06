@@ -28,7 +28,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Category::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignIdFor(Characteristic::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-
             $table->unique([ 'category_id', 'characteristic_id' ]);
         });
     }

@@ -188,6 +188,74 @@ ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
 
 
 --
+-- Name: category_characteristic; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.category_characteristic (
+    id bigint NOT NULL,
+    category_id bigint NOT NULL,
+    characteristic_id bigint NOT NULL
+);
+
+
+--
+-- Name: category_characteristic_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.category_characteristic_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: category_characteristic_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.category_characteristic_id_seq OWNED BY public.category_characteristic.id;
+
+
+--
+-- Name: characteristics; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.characteristics (
+    id bigint NOT NULL,
+    _lft integer DEFAULT 0 NOT NULL,
+    _rgt integer DEFAULT 0 NOT NULL,
+    parent_id integer,
+    smart boolean DEFAULT false NOT NULL,
+    sort integer DEFAULT 100 NOT NULL,
+    title character varying(255) NOT NULL,
+    type integer DEFAULT 1 NOT NULL,
+    description text,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+--
+-- Name: characteristics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.characteristics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: characteristics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.characteristics_id_seq OWNED BY public.characteristics.id;
+
+
+--
 -- Name: colors; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -284,38 +352,6 @@ CREATE SEQUENCE public.failed_jobs_id_seq
 --
 
 ALTER SEQUENCE public.failed_jobs_id_seq OWNED BY public.failed_jobs.id;
-
-
---
--- Name: groupсharacteristics; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public."groupсharacteristics" (
-    id bigint NOT NULL,
-    title character varying(255) NOT NULL,
-    description text,
-    created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
-);
-
-
---
--- Name: groupсharacteristics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public."groupсharacteristics_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: groupсharacteristics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public."groupсharacteristics_id_seq" OWNED BY public."groupсharacteristics".id;
 
 
 --
@@ -421,39 +457,6 @@ CREATE TABLE public.model_has_roles (
     model_type character varying(255) NOT NULL,
     model_id bigint NOT NULL
 );
-
-
---
--- Name: nameсharacteristics; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public."nameсharacteristics" (
-    id bigint NOT NULL,
-    "groupсharacteristic_id" bigint NOT NULL,
-    title character varying(255) NOT NULL,
-    description text,
-    created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
-);
-
-
---
--- Name: nameсharacteristics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public."nameсharacteristics_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: nameсharacteristics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public."nameсharacteristics_id_seq" OWNED BY public."nameсharacteristics".id;
 
 
 --
@@ -574,47 +577,6 @@ CREATE SEQUENCE public.personal_access_tokens_id_seq
 --
 
 ALTER SEQUENCE public.personal_access_tokens_id_seq OWNED BY public.personal_access_tokens.id;
-
-
---
--- Name: products; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.products (
-    id bigint NOT NULL,
-    category_id bigint NOT NULL,
-    active boolean DEFAULT true NOT NULL,
-    title character varying(255) NOT NULL,
-    slug character varying(255),
-    selling integer DEFAULT 0 NOT NULL,
-    discount integer DEFAULT 0 NOT NULL,
-    price integer DEFAULT 0 NOT NULL,
-    mean_grade integer DEFAULT 0 NOT NULL,
-    picture jsonb,
-    recommend jsonb,
-    description text,
-    created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
-);
-
-
---
--- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.products_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
 
 
 --
@@ -765,40 +727,6 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: valueсharacteristics; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public."valueсharacteristics" (
-    id bigint NOT NULL,
-    product_id bigint NOT NULL,
-    "nameсharacteristic_id" bigint NOT NULL,
-    value character varying(255) NOT NULL,
-    description text,
-    created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
-);
-
-
---
--- Name: valueсharacteristics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public."valueсharacteristics_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: valueсharacteristics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public."valueсharacteristics_id_seq" OWNED BY public."valueсharacteristics".id;
-
-
---
 -- Name: advs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -827,6 +755,20 @@ ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.c
 
 
 --
+-- Name: category_characteristic id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.category_characteristic ALTER COLUMN id SET DEFAULT nextval('public.category_characteristic_id_seq'::regclass);
+
+
+--
+-- Name: characteristics id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.characteristics ALTER COLUMN id SET DEFAULT nextval('public.characteristics_id_seq'::regclass);
+
+
+--
 -- Name: colors id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -848,13 +790,6 @@ ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- Name: groupсharacteristics id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."groupсharacteristics" ALTER COLUMN id SET DEFAULT nextval('public."groupсharacteristics_id_seq"'::regclass);
-
-
---
 -- Name: jobs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -866,13 +801,6 @@ ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id
 --
 
 ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.migrations_id_seq'::regclass);
-
-
---
--- Name: nameсharacteristics id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."nameсharacteristics" ALTER COLUMN id SET DEFAULT nextval('public."nameсharacteristics_id_seq"'::regclass);
 
 
 --
@@ -897,13 +825,6 @@ ALTER TABLE ONLY public.personal_access_tokens ALTER COLUMN id SET DEFAULT nextv
 
 
 --
--- Name: products id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
-
-
---
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -922,13 +843,6 @@ ALTER TABLE ONLY public.slides ALTER COLUMN id SET DEFAULT nextval('public.slide
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
-
-
---
--- Name: valueсharacteristics id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."valueсharacteristics" ALTER COLUMN id SET DEFAULT nextval('public."valueсharacteristics_id_seq"'::regclass);
 
 
 --
@@ -1004,6 +918,30 @@ ALTER TABLE ONLY public.categories
 
 
 --
+-- Name: category_characteristic category_characteristic_category_id_characteristic_id_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.category_characteristic
+    ADD CONSTRAINT category_characteristic_category_id_characteristic_id_unique UNIQUE (category_id, characteristic_id);
+
+
+--
+-- Name: category_characteristic category_characteristic_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.category_characteristic
+    ADD CONSTRAINT category_characteristic_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: characteristics characteristics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.characteristics
+    ADD CONSTRAINT characteristics_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: colors colors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1052,14 +990,6 @@ ALTER TABLE ONLY public.failed_jobs
 
 
 --
--- Name: groupсharacteristics groupсharacteristics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."groupсharacteristics"
-    ADD CONSTRAINT "groupсharacteristics_pkey" PRIMARY KEY (id);
-
-
---
 -- Name: job_batches job_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1097,14 +1027,6 @@ ALTER TABLE ONLY public.model_has_permissions
 
 ALTER TABLE ONLY public.model_has_roles
     ADD CONSTRAINT model_has_roles_pkey PRIMARY KEY (role_id, model_id, model_type);
-
-
---
--- Name: nameсharacteristics nameсharacteristics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."nameсharacteristics"
-    ADD CONSTRAINT "nameсharacteristics_pkey" PRIMARY KEY (id);
 
 
 --
@@ -1153,14 +1075,6 @@ ALTER TABLE ONLY public.personal_access_tokens
 
 ALTER TABLE ONLY public.personal_access_tokens
     ADD CONSTRAINT personal_access_tokens_token_unique UNIQUE (token);
-
-
---
--- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.products
-    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
 
 
 --
@@ -1228,18 +1142,17 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: valueсharacteristics valueсharacteristics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."valueсharacteristics"
-    ADD CONSTRAINT "valueсharacteristics_pkey" PRIMARY KEY (id);
-
-
---
 -- Name: categories__lft__rgt_parent_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX categories__lft__rgt_parent_id_index ON public.categories USING btree (_lft, _rgt, parent_id);
+
+
+--
+-- Name: characteristics__lft__rgt_parent_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX characteristics__lft__rgt_parent_id_index ON public.characteristics USING btree (_lft, _rgt, parent_id);
 
 
 --
@@ -1293,6 +1206,22 @@ ALTER TABLE ONLY public.bread_crumbs
 
 
 --
+-- Name: category_characteristic category_characteristic_category_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.category_characteristic
+    ADD CONSTRAINT category_characteristic_category_id_foreign FOREIGN KEY (category_id) REFERENCES public.categories(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: category_characteristic category_characteristic_characteristic_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.category_characteristic
+    ADD CONSTRAINT category_characteristic_characteristic_id_foreign FOREIGN KEY (characteristic_id) REFERENCES public.characteristics(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: model_has_permissions model_has_permissions_permission_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1309,14 +1238,6 @@ ALTER TABLE ONLY public.model_has_roles
 
 
 --
--- Name: nameсharacteristics nameсharacteristics_groupсharacteristic_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."nameсharacteristics"
-    ADD CONSTRAINT "nameсharacteristics_groupсharacteristic_id_foreign" FOREIGN KEY ("groupсharacteristic_id") REFERENCES public."groupсharacteristics"(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
 -- Name: role_has_permissions role_has_permissions_permission_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1330,22 +1251,6 @@ ALTER TABLE ONLY public.role_has_permissions
 
 ALTER TABLE ONLY public.role_has_permissions
     ADD CONSTRAINT role_has_permissions_role_id_foreign FOREIGN KEY (role_id) REFERENCES public.roles(id) ON DELETE CASCADE;
-
-
---
--- Name: valueсharacteristics valueсharacteristics_nameсharacteristic_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."valueсharacteristics"
-    ADD CONSTRAINT "valueсharacteristics_nameсharacteristic_id_foreign" FOREIGN KEY ("nameсharacteristic_id") REFERENCES public."nameсharacteristics"(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: valueсharacteristics valueсharacteristics_product_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public."valueсharacteristics"
-    ADD CONSTRAINT "valueсharacteristics_product_id_foreign" FOREIGN KEY (product_id) REFERENCES public.products(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -1400,6 +1305,7 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 25	2025_02_21_130720_create_brands_table	7
 26	2025_02_23_165325_create_colors_table	7
 27	2025_02_23_165339_create_dimensions_table	7
+28	2025_02_26_080221_create_characteristics_table	8
 \.
 
 
@@ -1407,7 +1313,7 @@ COPY public.migrations (id, migration, batch) FROM stdin;
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.migrations_id_seq', 27, true);
+SELECT pg_catalog.setval('public.migrations_id_seq', 28, true);
 
 
 --
