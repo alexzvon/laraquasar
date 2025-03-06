@@ -12,10 +12,6 @@
         rows: Array
     })
 
-
-    console.log(props.rows)
-
-
     const tableRef = ref()
     const selected = ref([])
     const initPaginate = ref({page: 1})
@@ -146,10 +142,10 @@
                 </q-input>
             </template>
             <template v-slot:top-left>
-                <q-btn flat no-caps label="Создать" @click.stop.prevent="onCreate" />
-                <q-btn flat no-caps label="Изменить" @click.stop.prevent="onEdit"/>
-                <q-btn flat no-caps color="dbrem" label="Удалить" @click.stop.prevent="onDestroy" />
-                <q-btn flat no-caps label="Проба" @click.stop.prevent="onProba" />
+                <q-btn flat no-caps label="Создать" :disable="!!selected.length" @click.stop.prevent="onCreate" />
+                <q-btn flat no-caps label="Изменить" :disable="!selected.length" @click.stop.prevent="onEdit"/>
+                <q-btn flat no-caps color="dbrem" label="Удалить" :disable="!selected.length" @click.stop.prevent="onDestroy" />
+                <!-- <q-btn flat no-caps label="Проба" @click.stop.prevent="onProba" /> -->
             </template>
         </q-table>
     </dashboard-layout>
