@@ -18,7 +18,6 @@ class ProductFactory extends Factory
     {
         return [
             'title' => fake()->jobTitle(),
-            'brand_id' => fake()->numberBetween(1, 30),
         ];
     }
 }

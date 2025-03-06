@@ -35,11 +35,14 @@ class Characteristic extends Model
         '_rgt',
     ];
 
-    protected $casts = [
-        'type' => TypeEnum::class,
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'type' => TypeEnum::class,
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
+    }
 
     public function categories(): BelongsToMany
     {

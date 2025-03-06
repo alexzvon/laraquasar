@@ -202,19 +202,19 @@
 </script>
 
 <template>
-      <q-input 
-      filled
-      dense
-      v-model="filterTree" 
-      label="Характеристика" 
-      label-color="gries"
-      color="gries"
-      style="height: 40px;"
-    >
-      <template v-slot:append>
-        <q-icon v-if="filterTree != ''" name="fa-solid fa-xmark" @click="filterTree = ''" class="cursor-pointer" />
-      </template>
-    </q-input>
+  <q-input 
+    filled
+    dense
+    v-model="filterTree" 
+    label="Характеристика" 
+    label-color="gries"
+    color="gries"
+    style="height: 40px;"
+  >
+    <template v-slot:append>
+      <q-icon v-if="filterTree != ''" name="fa-solid fa-xmark" @click="filterTree = ''" class="cursor-pointer" />
+    </template>
+  </q-input>
   <q-splitter v-model="widthSplitter" style="height: calc(100vh - 492px)">
     <template v-slot:before>
       <q-tree
@@ -273,8 +273,7 @@
         </template>
       </q-table>
 
-      {{ selected }}
-
+      <!-- {{ selected }} -->
 
       <!-- <q-list>
         <q-item>
@@ -329,10 +328,6 @@
           </q-item-section>
         </q-item>
       </q-list> -->
-
-
-
-
     </template>
   </q-splitter>
 </template>
