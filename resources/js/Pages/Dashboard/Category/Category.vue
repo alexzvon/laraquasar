@@ -209,6 +209,7 @@
       label-color="gries"
       color="gries"
       style="height: 40px;"
+      class="q-mx-md"
     >
       <template v-slot:append>
         <q-icon v-if="filterTree != ''" name="fa-solid fa-xmark" @click="filterTree = ''" class="cursor-pointer" />
@@ -217,6 +218,7 @@
     <q-splitter
       v-model="splitterModel"
       style="height: calc(100vh - 159px)"
+      class="q-ml-md"
     >
       <template v-slot:before>
         <q-tree

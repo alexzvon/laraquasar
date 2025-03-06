@@ -20,6 +20,7 @@
   const selected = ref(null)
   const selectedTable = ref([])
   const filter = ref(null)
+  const filterTree = ref('')
 
   const form = useForm({
     id: 0,
@@ -189,7 +190,20 @@
 </script>
 
 <template>
-  <q-splitter v-model="widthSplitter" style="height: calc(100vh - 452px)">
+      <q-input 
+      filled
+      dense
+      v-model="filterTree" 
+      label="Характеристика" 
+      label-color="gries"
+      color="gries"
+      style="height: 40px;"
+    >
+      <template v-slot:append>
+        <q-icon v-if="filterTree != ''" name="fa-solid fa-xmark" @click="filterTree = ''" class="cursor-pointer" />
+      </template>
+    </q-input>
+  <q-splitter v-model="widthSplitter" style="height: calc(100vh - 492px)">
     <template v-slot:before>
       <q-tree
         ref="tree"
@@ -200,10 +214,22 @@
         text-color="tree"
         class="q-size-font-tree"
         selected-color="text-gries"
+        :filter="filterTree"
         v-model:selected="selected"
         @update:selected="onNodeSelected"
         default-expand-all
       />
+    </template>
+    <template v-slot:separator>
+      <q-icon>
+        <svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none"  viewBox="0 0 16 16" id="Line-Vertical-Duotone--Streamline-Phosphor" height="16" width="16">
+          <desc>Line Vertical Duotone Streamline Icon: https://streamlinehq.com</desc>
+          <g id="line-vertical-duotone">
+            <path id="Vector" fill="#c4c4c3" d="M14 3v10c0 0.2651875 -0.105375 0.5195625 -0.292875 0.707125 -0.1875625 0.1875 -0.4419375 0.292875 -0.707125 0.292875H3c-0.26521875 0 -0.51956875 -0.105375 -0.70710625 -0.292875C2.10535625 13.5195625 2 13.2651875 2 13V3c0 -0.26521875 0.10535625 -0.51956875 0.29289375 -0.70710625C2.48043125 2.10535625 2.73478125 2 3 2h10c0.2651875 0 0.5195625 0.10535625 0.707125 0.29289375C13.894625 2.48043125 14 2.73478125 14 3Z" stroke-width="0.0625"></path>
+            <path id="Vector_2" fill="#000000" d="M8.5 1.5v13c0 0.132625 -0.0526875 0.2598125 -0.1464375 0.3535625S8.132625 15 8 15s-0.2598125 -0.0526875 -0.3535625 -0.1464375S7.5 14.632625 7.5 14.5V1.5c0 -0.13260625 0.0526875 -0.2597875 0.1464375 -0.35355625C7.7401875 1.05268125 7.867375 1 8 1s0.2598125 0.05268125 0.3535625 0.14644375C8.4473125 1.2402125 8.5 1.36739375 8.5 1.5Z" stroke-width="0.0625"></path>
+          </g>
+        </svg>
+      </q-icon>
     </template>
     <template v-slot:after>
       <q-table
@@ -218,7 +244,7 @@
         :filter="filter"
         v-model:selected="selectedTable"
         @row-dblclick="onDblClick"
-        class="text-gries bg-mutan"
+        class="text-gries bg-mutan q-ml-md"
       >
         <template v-slot:top-right>
           <q-input borderless dense debounce="300" v-model="filter" placeholder="Поиск">
