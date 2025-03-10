@@ -25,10 +25,40 @@ use App\Http\Controllers\Dashboard\DimensionController;
 use App\Http\Controllers\Dashboard\CharacteristicController;
 use App\Http\Controllers\Dashboard\ProductController;
 
-Route::get('/poligon/category', function (Request $request) {
-    $categories = Category::with('children')->orderBy('sort')->orderBy('id')->get()->toTree()->toArray();
+use App\Enums\TypeEnum;
 
-    dump($categories);
+Route::get('/poligon/category', function (Request $request) {
+    // $categories = Category::with('children')->orderBy('sort')->orderBy('id')->get()->toTree()->toArray();
+    // dump($categories);
+
+
+    // dump(TypeEnum::Brand);
+    // dump(TypeEnum::Brand->label());
+    // dump(TypeEnum::Brand->table());
+
+
+
+    // dump(TypeEnum::cases());
+
+
+    dump(Characteristic::find(5));
+    dump(Characteristic::find(5)->type);
+    dump(Characteristic::find(5)->type->label());
+    dump(Characteristic::find(5)->type->Table());
+    dump(Characteristic::find(5)->type->getOption());
+
+    dump(TypeEnum::Brand);
+    dump(TypeEnum::Brand->getOption());
+
+
+
+
+    dump(TypeEnum::getOptions());
+    
+    // dump(Characteristic::find(5)->toArray());
+
+
+
     dd('code');
 
 });
