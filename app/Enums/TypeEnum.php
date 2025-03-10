@@ -8,15 +8,11 @@ use App\Attributes\Enums\Label;
 use App\Attributes\Enums\Table;
 use App\Traits\Enums\LabelEnum;
 use App\Traits\Enums\TableEnum;
+use App\Traits\Enums\EnumOptions;
 
-// use App\Contracts\HasEnumName;
-// use App\Enums\Traits\EnumValue;
-// use App\Enums\Traits\EnumName;
-
-enum TypeEnum: int  // implements HasEnumName
+enum TypeEnum: int
 {
-  // use EnumValue;
-    use LabelEnum, TableEnum;
+    use LabelEnum, TableEnum, EnumOptions;
 
     #[Table('')]
     #[Label('Булево')]
@@ -38,41 +34,19 @@ enum TypeEnum: int  // implements HasEnumName
     #[Label('Справочник Размер')]
     case Dimension = 5;
 
-    public static function getOptions(): array
-    {
-        $options = [];
+    // public static function getOptions(): array
+    // {
+    //     $options = [];
 
-        foreach(self::cases() as $item) {
-            $options[] = [ 'label' => $item->label(), 'value' => $item->value ];
-        }
+    //     foreach(self::cases() as $item) {
+    //         $options[] = [ 'label' => $item->label(), 'value' => $item->value ];
+    //     }
 
-        return $options;
-    }
+    //     return $options;
+    // }
 
-    public function getOption(): array
-    {
-        return [ 'label' => $this->label(), 'value' => $this->value ];
-    }
+    // public function getOption(): array
+    // {
+    //     return [ 'label' => $this->label(), 'value' => $this->value ];
+    // }
 }
-
-// enum TypeNameEnum: string
-// {
-//     use EnumName;
-
-//     case Boolean = 'Булево';
-//     case Integer = 'Число';
-//     case Brand = 'Справочник Брэнд';
-//     case Color = 'Справочник Цвет';
-//     case Dimension = 'Справочник Размер';
-// }
-
-// enum TypeTableEnum: string
-// {
-//   use EnumName;
-
-//   case Boolean = '';
-//   case Integer = '';
-//   case Brand = 'brands';
-//   case Color = 'colors';
-//   case Dimension = 'dimensions';
-// }

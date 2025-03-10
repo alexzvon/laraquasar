@@ -30,12 +30,11 @@ class IndexAction
 
     protected function getCharacteristic(int $id): ?IndexResource
     {
-        // return $id ? IndexResource::make(Characteristic::find($id))->resolve() : null;
         return $id ? IndexResource::make(Characteristic::find($id)) : null;
     }
 
     protected function getTypes(): array
     {
-        return TypeEnum::getListOption();
+        return TypeEnum::getOptions();
     }
 }
