@@ -75,8 +75,8 @@ class HandleInertiaRequests extends Middleware
             : match ($field) {
                 'user' => $user,
                 'profile' => $user->profile,
-                'role' => $user->role::getEnumName()::{$user->role->name}->value,
-                'type' => $user->type::getEnumName()::{$user->type->name}->value,
+                'role' => $user->role->label(),  //$user->role::getEnumName()::{$user->role->name}->value,
+                'type' => $user->type->label(),  // $user->type::getEnumName()::{$user->type->name}->value,
                 default => null,
             };
     }

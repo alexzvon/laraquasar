@@ -21,7 +21,7 @@ class IndexResource extends JsonResource
             'sort' => $this->sort,
             'title' => $this->title,
             'smart' => $this->smart,
-            'type' => TypeEnum::getOption($this->type->value),
+            'type' => $this->type->getOption(),
             'description' => $this->description,
         ];
     }

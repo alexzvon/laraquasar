@@ -3,6 +3,6 @@ namespace App\Contracts;
 
 interface HasEnumName
 {
-    public static function getEnumName(): string;
+    // public static function getEnumName(): string;
 }
 
