@@ -23,6 +23,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Dashboard\ColorController;
 use App\Http\Controllers\Dashboard\DimensionController;
 use App\Http\Controllers\Dashboard\CharacteristicController;
+use App\Http\Controllers\Dashboard\ProductController;
 
 Route::get('/poligon/category', function (Request $request) {
     $categories = Category::with('children')->orderBy('sort')->orderBy('id')->get()->toTree()->toArray();
@@ -136,6 +137,9 @@ Route::middleware('auth')->group(function () {
             Route::post('append/{characteristic_id}', [ CharacteristicController::class, 'append' ])->name('append');
         });
 
+        Route::prefix('product')->name('product.')->group(function(){
+            Route::get('{category_id}', [ProductController::class, 'index'])->name('index');
+        });
 
         Route::resource('users', UserController::class);
     });

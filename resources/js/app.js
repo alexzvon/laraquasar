@@ -21,26 +21,26 @@ import quasarLang from 'quasar/lang/ru'
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
-        title: (title) => `${title} - ${appName}`,
-        resolve: async name => await resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
-        setup({ el, App, props, plugin }) {
-                return createApp({ render: () => h(App, props) })
-                        .use(plugin)
-                        .use(ZiggyVue)
-                        .use(Quasar, {
-                                plugins: {
-                                        Cookies,
-                                        Notify,
-                                        Dialog,
-                                }, // import Quasar plugins and add here
-                                iconSet: quasarIconSet,
-                                lang: quasarLang,
-                                config: {}, // quasar config see: https://quasar.dev/start/vite-plugin/
-                        })
-                        .mount(el);
-        },
-        progress: {
-                color: '#4B5563',
-        },
+  title: (title) => `${title} - ${appName}`,
+  resolve: async name => await resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+  setup({ el, App, props, plugin }) {
+    return createApp({ render: () => h(App, props) })
+      .use(plugin)
+      .use(ZiggyVue)
+      .use(Quasar, {
+        plugins: {
+          Cookies,
+          Notify,
+          Dialog,
+        }, // import Quasar plugins and add here
+        iconSet: quasarIconSet,
+        lang: quasarLang,
+        config: {}, // quasar config see: https://quasar.dev/start/vite-plugin/
+      })
+      .mount(el);
+  },
+  progress: {
+    color: '#4B5563',
+  },
 });
 

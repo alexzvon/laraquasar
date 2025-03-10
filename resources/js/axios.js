@@ -12,7 +12,7 @@ import { Notify } from 'quasar'
 const bearer = 'Bearer '
 
 const getToken = () => {
-    return bearer + $q.Cookies.get('tokenApi')
+  return bearer + $q.Cookies.get('tokenApi')
 }
 
 // const setToken = (t) => {
@@ -20,31 +20,31 @@ const getToken = () => {
 // }
 
 const hasToken = () => {
-    return $q.Cookies.has('tokenApi')
+  return $q.Cookies.has('tokenApi')
 }
 
 const api = axios.create({
-//  withCredentials: true,
+  //  withCredentials: true,
   withXSRFToken: true,
   baseURL: 'http://localhost/api',                         //process.env.API_PATH,
   timeout: 5000
 })
 
 api.interceptors.request.use(
-    config => {
+  config => {
 
-        // console.log(cookies)
-        // console.log($q.Cookies.has('tokenApi'))
+    // console.log(cookies)
+    // console.log($q.Cookies.has('tokenApi'))
 
 
-        if(hasToken()) {
-            // config.headers['Authorization'] = getToken()
-        }
+    if (hasToken()) {
+      // config.headers['Authorization'] = getToken()
+    }
 
-        return config
-    },
+    return config
+  },
 
-    error => Promise.reject(error)
+  error => Promise.reject(error)
 )
 
 api.interceptors.response.use(
@@ -61,8 +61,8 @@ api.interceptors.response.use(
         message = message ? message : error.response.data.message
         break;
       case 401:
-//        const authStore = useAuthStore()
-//        authStore.refreshLogin(error)
+        //        const authStore = useAuthStore()
+        //        authStore.refreshLogin(error)
         message = error.response.data.message
         break;
       case 403:
