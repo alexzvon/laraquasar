@@ -63,6 +63,11 @@ class Category extends Model    // implements HasMedia
         return $this->belongsToMany(Characteristic::class);
     }
 
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
     public static function getAll(): array
     {
         return match (Cache::has(self::CACHE_ALL)) {
@@ -85,8 +90,8 @@ class Category extends Model    // implements HasMedia
         return Cache::forget(self::CACHE_ALL);
     }
 
-    protected function serializeDate(\DateTimeInterface $date)
-    {
-        return $date->format('d.m.Y H:i:s');
-    }
+    // protected function serializeDate(\DateTimeInterface $date)
+    // {
+    //     return $date->format('d.m.Y H:i:s');
+    // }
 }

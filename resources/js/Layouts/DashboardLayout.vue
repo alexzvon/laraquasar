@@ -12,9 +12,13 @@
 
     const page = usePage()
 
-    // const catalog_id = page.props.catalog_id ?? 0
-    // const chapter_id = page.props.chapter_id ?? 0
     const location = page.props.ziggy.location
+    const category_id = page.props.category == undefined ? 0: page.props.category.id
+    const product_id = page.props.product == undefined ? 0: page.props.product.id
+
+    // console.log('page.props.ziggy.location')
+    // console.log(page.props.ziggy.location)
+    // console.log('page.props.ziggy.location')
 
     const onActiveUsers = () => {
       let id = usePage().props.user == undefined ? 0 : usePage().props.user.id
@@ -29,7 +33,7 @@
       // let characteristic_id = usePage().props.characteric == undefined ? 0: usePage().props.characteric.id
       // let location_page = page.props.ziggy.location
 
-      let category_id = page.props.category == undefined ? 0: page.props.category.id
+      // let category_id = page.props.category == undefined ? 0: page.props.category.id
       // let characteristic_id = page.props.characteric == undefined ? 0: page.props.characteric.id
       let location_page = page.props.ziggy.location
 
@@ -43,9 +47,12 @@
     }
 
     const onActiveProduct = () => {
-      return route('dashboard.product.index', 
-        { 'category_id': page.props.category_id == undefined ? 0: page.props.category_id }
-      ) == location
+
+      // console.log(location)
+      // console.log(route('dashboard.product.index', { 'category_id': page.props.category == undefined ? 0: page.props.category.id }))
+
+      // return route('dashboard.product.index', { 'category_id': page.props.category == undefined ? 0: page.props.category.id }) == location
+      return route('dashboard.product.index', { category_id: category_id, product_id: product_id }) == location
     }
 
     const visible = ref(false)
@@ -224,7 +231,7 @@
               dense
               clickable
               v-ripple
-              @click="loadItem('dashboard.product.index', { 'category_id': 0 }, 'get')"
+              @click="loadItem('dashboard.product.index', { category_id: 0, product_id: 0 }, 'get')"
               :active="onActiveProduct()"
               active-class="text-gries bg-mutan"
             >
