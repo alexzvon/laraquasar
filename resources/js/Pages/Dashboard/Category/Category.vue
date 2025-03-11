@@ -42,7 +42,7 @@
         { category_id: nodeId ?? 1 }), 
           {
             method: 'get', 
-            only: [ ' errors', 'ziggy', 'category', 'characteristics', 'characteristic' ],
+            only: [ 'errors', 'ziggy', 'category', 'characteristics', 'characteristic' ],
             preserveState: true,
             preserveScroll: true,
             onSuccess: () => onReset()

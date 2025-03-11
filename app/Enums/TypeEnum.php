@@ -33,20 +33,4 @@ enum TypeEnum: int
     #[Table('dimensions')]
     #[Label('Справочник Размер')]
     case Dimension = 5;
-
-    // public static function getOptions(): array
-    // {
-    //     $options = [];
-
-    //     foreach(self::cases() as $item) {
-    //         $options[] = [ 'label' => $item->label(), 'value' => $item->value ];
-    //     }
-
-    //     return $options;
-    // }
-
-    // public function getOption(): array
-    // {
-    //     return [ 'label' => $this->label(), 'value' => $this->value ];
-    // }
 }
