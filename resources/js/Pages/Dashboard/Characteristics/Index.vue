@@ -146,7 +146,7 @@
       <template v-slot:after>
         <q-list>
           <q-item>
-            <q-item-section  class="justify-around col-6">
+            <q-item-section class="justify-around col-6">
               <q-input
                 dense
                 filled

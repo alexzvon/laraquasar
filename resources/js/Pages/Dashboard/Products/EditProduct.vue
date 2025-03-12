@@ -17,7 +17,7 @@
 </script>
 
 <template>
-  <q-toolbar class="bg-mutan text-gries no-border">
+  <q-toolbar class="bg-mutan text-gries border-bottom-grey-light-0">
     <q-tabs
       v-model="isComponent"
       dense

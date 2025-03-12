@@ -5,36 +5,79 @@
     name: 'Product'
   })
 
-  const { form, updateProduct } = inject('product')
+  const { form, storeProduct, reloadProduct } = inject('storeProduct')
 
 </script>
 
 <template>
-  <h1>Product</h1>
-  {{ form }}
-  <q-list>
-    <q-item>
-      <q-item-section>
-        <q-input
-          dense
-          label="Id"
-          v-model="form.id"
-          readonly
-        />
-        <q-input
-          dense
-          label="sort"
-          v-model="form.sort"
-        />
-        <q-input
-          dense
-          label="title"
-          v-model="form.title"
-        />
-      </q-item-section>
-      <q-item-section>
-        <q-btn flat no-caps label="Сохранить" @click.stop.prevent="updateProduct()" />
-      </q-item-section>
-    </q-item>
-  </q-list>
+  <div class="row justify-center q-ma-lg">
+    <q-list class="product-card" bordered separator>
+      <q-item>
+        <q-item-section>
+          <q-input
+            dense
+            filled
+            square
+            label-color="gries"
+            color="gries"
+            label="Id"
+            v-model="form.id"
+            readonly
+            class="q-mb-md"
+          />
+          <q-toggle 
+            label-color="gries"
+            color="gries"
+            v-model="form.active"
+            label="Активный"
+            class="q-mb-md"
+          />
+          <q-input
+            filled
+            square
+            label-color="gries"
+            color="gries"
+            dense
+            label="sort"
+            v-model="form.sort"
+            class="q-mb-md"
+          />
+          <q-input
+            filled
+            square
+            label-color="gries"
+            color="gries"
+            dense
+            label="Наименование"
+            v-model="form.title"
+            class="q-mb-md"
+          />
+          <q-input
+            filled
+            square
+            label-color="gries"
+            color="gries"
+            dense
+            label="Слаг"
+            v-model="form.slug"
+            class="q-mb-md"
+          />
+        </q-item-section>
+      </q-item>
+      <q-item>
+        <q-item-section>
+          <q-btn flat no-caps label="Сохранить" @click.stop.prevent="storeProduct" />
+        </q-item-section>
+        <q-item-section>
+          <q-btn flat no-caps label="Отменить" @click.stop.prevent="reloadProduct(false)" />
+        </q-item-section>
+      </q-item>
+    </q-list>
+  </div>
 </template>
+
+<style lang="sass" scoped>
+.product-card
+  width: 100%
+  max-width: 550px
+</style>
