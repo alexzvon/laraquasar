@@ -7,7 +7,8 @@
 
   const emit = defineEmits(['onEditProduct', 'onTableProducts'])
   
-  const category = inject('category')
+  const { category, reloadProduct } = inject('tableProducts')
+  // const { form, newProduct } = inject('newProduct')
 
   const tableRef = ref()
   const selected = ref([])
@@ -22,6 +23,15 @@
       headerStyle: 'font-weight: 505; font-size: 12px;',
       sortable: true,
     },
+    {
+        label: 'Активность',
+        name: 'active',
+        field: 'active',
+        align: 'center',
+        format: val => val ? '☑' : '☐',
+        headerStyle: 'font-weight: 505; font-size: 12px;',
+        sortable: true,
+      },
     {
       label: 'Сортировка',
       name: 'sort',
@@ -38,15 +48,33 @@
       headerStyle: 'font-weight: 505; font-size: 12px;',
       sortable: true,
     },
+    {
+      label: 'Слаг',
+      name: 'slug',
+      field: 'slug',
+      align: 'center',
+      headerStyle: 'font-weight: 505; font-size: 12px;',
+      sortable: true,
+    },
+    {
+      label: 'Цена',
+      name: 'price',
+      field: 'price',
+      align: 'center',
+      headerStyle: 'font-weight: 505; font-size: 12px;',
+      sortable: true,
+    },
   ];
 
   const onCreate = () => {
-    console.log('onCreate')
+//    reloadProduct(false, 0)
+    emit('onEditProduct')
+    // console.log('onCreate')
   }
 
-
   const onUpdate = () => {
-    console.log('onUpdate')
+    reloadProduct(false, selected.value[0].id)
+    // console.log('onUpdate')
   }
   
   const onDelete = () => {
@@ -66,8 +94,8 @@
 </script>
 
 <template>
-  <h1>Table Products</h1>
-  {{ category }} <br />
+  <!-- <h1>Table Products</h1>
+  {{ category }} <br /> -->
   <!-- {{ category.products }} -->
 
   <q-table
@@ -91,13 +119,13 @@
       </q-input>
     </template>
     <template v-slot:top-left>
-      <q-btn flat no-caps :disable="!!selected.length" label="Добавить" @click.stop.prevent="emit('onEditProduct')" /> 
-      <q-btn flat no-caps :disable="!selected.length" label="Изменить" @click.stop.prevent="emit('onEditProduct')" /> 
-      <q-btn flat no-caps :disable="!selected.length" label="Удалить" @click.stop.prevent="onDelete"/>
+      <q-btn flat no-caps :disable="!!selected.length" label="Создать" @click.stop.prevent="onCreate" /> 
+      <q-btn flat no-caps :disable="!selected.length" label="Изменить" @click.stop.prevent="onUpdate" /> 
+      <q-btn flat no-caps color="dbrem" :disable="!selected.length" label="Удалить" @click.stop.prevent="onDelete"/>
       <!-- <q-btn flat no-caps color="dbrem" label="Удалить" @click.stop.prevent="onDestroy" />
       <q-btn flat no-caps label="Проба" @click.stop.prevent="onProba" /> -->
     </template>
   </q-table>
-
+<!-- {{ selected }} -->
 
 </template>

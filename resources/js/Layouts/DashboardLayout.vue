@@ -231,7 +231,7 @@
               dense
               clickable
               v-ripple
-              @click="loadItem('dashboard.product.index', { category_id: 0, product_id: 0 }, 'get')"
+              @click="loadItem('dashboard.product.index', { category_id: 1, product_id: 0 }, 'get')"
               :active="onActiveProduct()"
               active-class="text-gries bg-mutan"
             >

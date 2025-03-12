@@ -169,6 +169,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('product')->name('product.')->group(function(){
             Route::get('{category_id}/{product_id}', [ProductController::class, 'index'])->name('index');
+            Route::post('store', [ ProductController::class, 'store' ])->name('store');
         });
 
         Route::resource('users', UserController::class);

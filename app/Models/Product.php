@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Product extends Model
@@ -41,8 +42,13 @@ class Product extends Model
     {
         parent::boot();
 
-        static::created(function (Product $product) {
-            $product->slug = $product->slug ?? Str::slug($product->title);
+        static::creating(function (Product $product) {
+            $product->slug ??= Str::slug($product->title);
         });
+    }
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class);
     }
 }
