@@ -22,6 +22,8 @@
             color="gries"
             label="Id"
             v-model="form.id"
+            :error-message="form.errors.id"
+            :error="!!form.errors.id"
             readonly
             class="q-mb-md"
           />
@@ -40,6 +42,8 @@
             dense
             label="sort"
             v-model="form.sort"
+            :error-message="form.errors.sort"
+            :error="!!form.errors.sort"
             class="q-mb-md"
           />
           <q-input
@@ -50,6 +54,8 @@
             dense
             label="Наименование"
             v-model="form.title"
+            :error-message="form.errors.title"
+            :error="!!form.errors.title"
             class="q-mb-md"
           />
           <q-input
@@ -60,6 +66,8 @@
             dense
             label="Слаг"
             v-model="form.slug"
+            :error-message="form.errors.slug"
+            :error="!!form.errors.slug"
             class="q-mb-md"
           />
         </q-item-section>
