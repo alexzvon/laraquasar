@@ -25,6 +25,7 @@
     active: true,
     title: '',
     sort: 100,
+    slug: '',
     category_id: 0,
     description: '',
     picture_image: [],
@@ -48,33 +49,40 @@
   }
 
   const storeProduct = () => {
-    if (category.value.id > 0) {
+    if (form.id == 0) {
       form.category_id = category.value.id
       form._method = 'POST'
-
       form.post(route('dashboard.product.store'),
         {
          only: [ 'error', 'category', 'product' ],
+         preserveState: false,
         }
       )
     } else {
+      form.category_id = category.value.id
       form._method = 'PUT'
-      console.log(form)
+      form.post(route('dashboard.product.update'),
+        {
+         only: [ 'error', 'category', 'product' ],
+         preserveState: false,
+        }
+      )
     }
   }
   
-  const createProduct = () => {
-    form.category_id = category.value.id
-    form._method = 'POST'
-
-    // form.post(route('dashboard.product.store'),
-    //   {
-    //     only: [ 'error', 'category', 'product' ],
-
-    //   }
-    // )
-
-    // console.log(form)
+  const destroyProduct = (product_id) => {
+    router.visit(
+      route('dashboard.product.destroy', { category_id: category.value.id, product_id: product_id }),
+      {
+        method: 'delete',
+        only: [ 'error', 'category', 'product' ],
+        preserveState: false,
+        preserveScroll: true,
+        onSuccess: () => {
+          selected.value = category.value.id
+        }
+      }
+    )
   }
 
   // const resetProduct = () => {
@@ -171,8 +179,10 @@
     // console.log(props.product)
   })
 
-  provide('tableProducts', { category, reloadProduct })
+  provide('form', form)
+  provide('tableProducts', { category, destroyProduct, reloadProduct })
   provide('storeProduct', { form, storeProduct, reloadProduct })
+
   
 
 

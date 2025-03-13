@@ -7,9 +7,8 @@
 
   const emit = defineEmits(['onEditProduct', 'onTableProducts'])
   
-  const { category, reloadProduct } = inject('tableProducts')
-  // const { form, newProduct } = inject('newProduct')
-
+  const { category, destroyProduct, reloadProduct } = inject('tableProducts')
+  
   const tableRef = ref()
   const selected = ref([])
   const filter = ref('')
@@ -67,20 +66,17 @@
   ];
 
   const onCreate = () => {
-//    reloadProduct(false, 0)
     emit('onEditProduct')
-    // console.log('onCreate')
   }
 
   const onUpdate = () => {
     reloadProduct(false, selected.value[0].id)
-    // console.log('onUpdate')
   }
   
   const onDelete = () => {
-    console.log('onDelete')
+    destroyProduct(selected.value[0].id)
+    // console.log('onDelete')
   }
-
 
 
   // const props = defineProps({
@@ -94,10 +90,6 @@
 </script>
 
 <template>
-  <!-- <h1>Table Products</h1>
-  {{ category }} <br /> -->
-  <!-- {{ category.products }} -->
-
   <q-table
     flat
     dense
