@@ -17,7 +17,7 @@ class IndexProductResource extends JsonResource
             'slug' => $this->slug,
             'price' => $this->price,
             'description' => $this->description,
-            'picture_image' => $this->picture_image,
+            'picture_image' => $this->picture_image ?? [],      //TODO $this->picture_image ?? []
         ];
     }
 }

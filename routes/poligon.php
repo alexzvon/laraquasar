@@ -171,6 +171,10 @@ Route::middleware('auth')->group(function () {
             Route::get('{category_id}/{product_id}', [ProductController::class, 'index'])->name('index');
             Route::post('store', [ ProductController::class, 'store' ])->name('store');
             Route::put('update', [ ProductController::class, 'update' ])->name('update');
+            
+            Route::put('store/image', [ ProductController::class, 'storeImage' ])->name('store.image');
+            Route::delete('destroy/image/{category_id}/{product_id}/{index_picture_image}', [ ProductController::class, 'destroyImage' ])->name('destroy.image');
+
             Route::delete('delete/{category_id}/{product_id}', [ ProductController::class, 'destroy' ])->name('destroy');
         });
 

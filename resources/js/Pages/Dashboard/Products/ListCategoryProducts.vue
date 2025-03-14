@@ -29,6 +29,7 @@
     category_id: 0,
     description: '',
     picture_image: [],
+    image: null,
     price: 0,
     _method: 'POST'
   })
@@ -85,30 +86,36 @@
     )
   }
 
-  // const resetProduct = () => {
-  //   router.visit(
-  //     route('dashboard.product.index', { category_id: category.value.id, product_id: 0 }),
-  //     {
-  //       method: 'get',
-  //       only: [ 'error' ],
-  //       // preserveState: true,
-  //       preserveScroll: true,
-  //       onSuccess: () => {
-  //         form.id = 0
-  //         form.active = true
-  //         form.sort = 100
-  //         form.category_id = category.value.id
-  //         form.title = ''
-  //         form.description = ''
-  //         form.picture_image = []
-  //         form.price = 0
+  const storeImage = () => {
+    form._method = 'PUT'
+    form.post(route('dashboard.product.store.image'),
+      {
+        only: [ 'error', 'product' ],
+        onSuccess: () => {
+          rollbackProduct()
+        }
+      })
 
-  //         selected.value = category.value.id
-  //       }
-  //     }
-  //   )
-  // }
-  // provide('product', { form, createProduct, resetProduct })
+    console.log('storeImage')
+  }
+
+  const destroyImage = (index) => {
+    router.visit(
+      route('dashboard.product.destroy.image', { category_id: category.value.id, product_id: form.id, index_picture_image: index}),
+      {
+        method: 'delete',
+        only: ['error', 'product'],
+        preserveState: true,
+        preserveScroll: true,
+        onSuccess: () => {
+          rollbackProduct()
+        }
+      }
+    )
+    
+    console.log('destroyImage')
+  }
+
 
   const onNodeSelected = (nodeId) => {
     router.visit(
@@ -136,6 +143,7 @@
     form.slug = ''
     form.description = ''
     form.picture_image = []
+    form.image = null,
     form.price = 0
   }
 
@@ -148,6 +156,7 @@
     form.slug = props.product.slug
     form.description = props.product.description
     form.picture_image = props.product.picture_image
+    form.image = null
     form.price = props.product.price
   }
 
@@ -176,15 +185,13 @@
 
     // console.log('onMounted')
     // console.log(props.category)
-    // console.log(props.product)
+    console.log(props.product)
   })
 
   provide('form', form)
   provide('tableProducts', { category, destroyProduct, reloadProduct })
   provide('storeProduct', { form, storeProduct, reloadProduct })
-
-  
-
+  provide('image', { form, storeImage, destroyImage })
 
   // console.log(props.category)
 </script>
