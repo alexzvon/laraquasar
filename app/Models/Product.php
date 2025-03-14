@@ -35,6 +35,7 @@ class Product extends Model
         return [
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
+            'picture_image' => 'array'
         ];
     }
 
